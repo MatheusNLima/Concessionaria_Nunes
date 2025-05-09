@@ -5,16 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meus Interesses - Concessionária Nunes</title>
     <link rel="stylesheet" href="style.css">
+    <!-- SEUS LINKS DE FAVICON CORRETOS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="images/icon/apple-touch-icon.png"> 
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon/favicon-16x16.png">
+    <!-- <link rel="manifest" href="images/icon/site.webmanifest"> -->
 </head>
 <body>
     <header>
         <button id="btn-menu" aria-label="Abrir menu" aria-expanded="false">☰</button>
+        
         <div class="logo-container">
             <a href="index.html" aria-label="Página Inicial - Concessionária Nunes">
                 <img src="images/logo/logo.png" alt="Logo Concessionária Nunes" id="header-logo">
             </a>
         </div>
-        <div class="header-spacer-right-for-btn"></div> 
+
+        <div class="search-container">
+            <input type="search" id="search-bar-interesses" placeholder="Buscar nos interesses..." aria-label="Buscar nos seus veículos de interesse">
+            <button id="search-btn-interesses" aria-label="Buscar nos interesses">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </button>
+        </div>
+        
         <nav id="nav-menu">
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -33,9 +48,8 @@
             <p class="mensagem-inicial-interesses" style="text-align: center; padding: 30px;">
                 Carregando seus veículos de interesse...
             </p>
-            <p class="mensagem-sem-interesses" style="text-align: center; padding: 30px; display: none;">
-                Você ainda não marcou nenhum veículo como interesse.
-            </p>
+            <!-- Mensagem de feedback para busca será manipulada pelo JS -->
+            <p class="mensagem-feedback-interesses" style="width:100%; text-align: center; padding: 30px; display: none;"></p>
         </div>
         <div id="paginacao-interesses">
         </div>
