@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meus Interesses - Loja de Carros</title>
+    <title>Meus Interesses - Concessionária Nunes</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <button id="btn-menu" aria-label="Abrir menu" aria-expanded="false">☰</button>
-        <h1><a href="index.html">Concessionária Velocidade Máxima</a></h1>
+        <div class="logo-container">
+            <a href="index.html" aria-label="Página Inicial - Concessionária Nunes">
+                <img src="images/logo/logo.png" alt="Logo Concessionária Nunes" id="header-logo">
+            </a>
+        </div>
+        <div class="header-spacer-right-for-btn"></div> 
         <nav id="nav-menu">
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -25,20 +30,20 @@
     <main>
         <h2>Meus Veículos de Interesse</h2>
         <div id="vitrine-interesses">
-            <p class="mensagem-loading" style="text-align: center; padding: 30px;">Carregando seus veículos de interesse...</p>
+            <p class="mensagem-inicial-interesses" style="text-align: center; padding: 30px;">
+                Carregando seus veículos de interesse...
+            </p>
             <p class="mensagem-sem-interesses" style="text-align: center; padding: 30px; display: none;">
                 Você ainda não marcou nenhum veículo como interesse.
             </p>
         </div>
         <div id="paginacao-interesses">
-            <!-- Botões de paginação dos interesses serão inseridos aqui -->
         </div>
     </main>
 
     <footer>
-        <p>© 2024 Concessionária Velocidade Máxima. Todos os direitos reservados.</p>
+        <p>© 2024 Concessionária Nunes. Todos os direitos reservados.</p>
     </footer>
-
     <script src="interesses.js"></script>
 </body>
 </html>
