@@ -71,7 +71,7 @@
         "marca": "Renault",
         "ano": 2023,
         "preco": "R$ 140.000,00",
-        "fotosUrls": [
+        "fotosUrls": [ 
             "images/kwid_e-tech/kwid_frente.webp",
             "images/kwid_e-tech/kwid_costas.webp",
             "images/kwid_e-tech/kwid_interior.webp"
