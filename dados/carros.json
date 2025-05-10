@@ -1,15 +1,14 @@
 [
     {
         "id": 1,
-        "nome": "Fusca TSI Concept",
-        "marca": "Volkswagen",
-        "ano": 2022,
-        "preco": "R$ 95.000,00",
+        "nome": "Hilux SW4 Diamond",
+        "marca": "Toyota",
+        "ano": 2025,
+        "preco": "R$ 415.000,00",
         "fotosUrls": [ 
-            "images/fusca_tsi/fusca_tsi_lateral.webp",
-            "images/fusca_tsi/fusca_tsi_costas.webp",
-            "images/fusca_tsi/fusca_tsi_interior.webp",
-            "images/fusca_tsi/fusca_tsi_interior2.webp"
+            "images/hilux_sw4/hilux_frente.webp",
+            "images/hilux_sw4/hilux_costas.webp",
+            "images/hilux_sw4/hilux_interior.webp"
         ],
         "descricao": "Um clássico reimaginado com motor turbo e design moderno, perfeito para quem busca estilo e performance."
     },
@@ -302,5 +301,19 @@
             "images/byd_dolphin/byd_interior.webp"
         ],
         "descricao": "Carro elétrico compacto e ágil, com design moderno e ótima autonomia para a cidade."
+    },
+    {
+        "id": 24,
+        "nome": "Fusca TSI Concept",
+        "marca": "Volkswagen",
+        "ano": 2022,
+        "preco": "R$ 95.000,00",
+        "fotosUrls": [ 
+            "images/fusca_tsi/fusca_tsi_lateral.webp",
+            "images/fusca_tsi/fusca_tsi_costas.webp",
+            "images/fusca_tsi/fusca_tsi_interior.webp",
+            "images/fusca_tsi/fusca_tsi_interior2.webp"
+        ],
+        "descricao": "Um clássico reimaginado com motor turbo e design moderno, perfeito para quem busca estilo e performance."
     }
 ]
