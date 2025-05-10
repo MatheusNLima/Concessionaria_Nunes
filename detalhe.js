@@ -1,10 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.getElementById('detalhe-carro-container');
-    const loadingSpinner = container.querySelector('.loading-spinner'); // Já selecionado
-
+    const loadingSpinner = container.querySelector('.loading-spinner'); 
     const placeholderFallbackGlobal = "placeholder_img/placeholder-400x300_fallback.png";
-    let todosOsCarros = []; // Para armazenar os carros carregados
-
+    let todosOsCarros = [];
     async function carregarDadosECarregarDetalhes() {
         try {
             const response = await fetch('dados/carros.json');
@@ -12,39 +10,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(`Erro HTTP ao carregar carros.json: ${response.status}`);
             }
             todosOsCarros = await response.json();
-            
-            // Agora que os dados foram carregados, prossiga para encontrar e exibir o carro
             const urlParams = new URLSearchParams(window.location.search);
             const carroIdParam = urlParams.get('id'); 
-
             if (!carroIdParam) {
                 if(loadingSpinner) loadingSpinner.remove();
                 container.innerHTML = '<p style="color: red; text-align: center;">ID do carro não fornecido na URL.</p>';
                 return;
             }
-
             const carroId = parseInt(carroIdParam);
-
             if (isNaN(carroId)) {
                 if(loadingSpinner) loadingSpinner.remove();
                 container.innerHTML = '<p style="color: red; text-align: center;">ID do carro inválido.</p>';
                 return;
             }
-            
             const carroSelecionado = todosOsCarros.find(c => c.id === carroId);
-
             if (!carroSelecionado) {
                 if(loadingSpinner) loadingSpinner.remove();
                 container.innerHTML = `<p style="color: red; text-align: center;">Carro com ID ${carroId} não encontrado.</p>`;
                 return;
             }
-
-            // Se encontrou, exibe
             if(loadingSpinner) loadingSpinner.remove();
             document.title = carroSelecionado.nome + " - Detalhes";
-
             const fotoPrincipalDetalhe = (carroSelecionado.fotosUrls && carroSelecionado.fotosUrls.length > 0 && carroSelecionado.fotosUrls[0]) ? carroSelecionado.fotosUrls[0] : placeholderFallbackGlobal;
-
             container.innerHTML = `
                 <div class="detalhe-carro-grid">
                     <div class="detalhe-imagens">
@@ -52,7 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
                              src="${fotoPrincipalDetalhe}" 
                              alt="Foto principal de ${carroSelecionado.nome}"
                              onerror="this.onerror=null; this.src='${placeholderFallbackGlobal}';">
-                        
                         ${ (carroSelecionado.fotosUrls && carroSelecionado.fotosUrls.length > 1) ? `
                             <div class="miniaturas">
                                 ${carroSelecionado.fotosUrls.map((fotoUrl, index) => `
@@ -74,10 +60,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
             `;
-
             const imagemPrincipalEl = document.getElementById('imagem-principal-detalhe');
             const miniaturasContainer = container.querySelector('.miniaturas');
-
             if (miniaturasContainer && imagemPrincipalEl) {
                 miniaturasContainer.addEventListener('click', function(event) {
                     if (event.target.tagName === 'IMG') {
@@ -88,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 });
             }
-            
             const btnInteresse = document.getElementById('btn-add-interesse');
             if (btnInteresse) {
                 let interesses = JSON.parse(localStorage.getItem('carrosInteresse')) || [];
@@ -111,19 +94,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     localStorage.setItem('carrosInteresse', JSON.stringify(interesses));
                 });
             }
-
         } catch (error) {
             console.error('Falha ao carregar dados ou exibir detalhes do carro:', error);
             if(loadingSpinner) loadingSpinner.remove();
             container.innerHTML = '<p style="color: red; text-align: center;">Erro ao carregar informações do veículo. Tente novamente mais tarde.</p>';
         }
     }
-
-
-    // Lógica do Menu Sanduíche
     const btnMenuDetalhe = document.getElementById('btn-menu');
     const navMenuDetalhe = document.getElementById('nav-menu');
-
     if (btnMenuDetalhe && navMenuDetalhe) {
         btnMenuDetalhe.addEventListener('click', () => {
             const isExpanded = navMenuDetalhe.classList.toggle('ativo');
@@ -138,9 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         console.error("[detalhe.js] ERRO: Elementos do menu #btn-menu ou #nav-menu não encontrados.");
     }
-
-    if (document.body) { document.body.id = 'detalhe-page'; } // Adiciona ID para CSS específico, se necessário
-    
-    // Inicia o carregamento
+    if (document.body) { document.body.id = 'detalhe-page'; } 
     carregarDadosECarregarDetalhes();
 });

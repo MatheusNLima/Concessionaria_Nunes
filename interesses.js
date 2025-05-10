@@ -1,13 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
     const vitrineInteresses = document.getElementById('vitrine-interesses');
     const mensagemInicialInteresses = document.querySelector('.mensagem-inicial-interesses');
-    // Garante que temos uma referência à mensagem de feedback ou a cria
+    
     let mensagemFeedbackInteresses = document.querySelector('#vitrine-interesses .mensagem-feedback-interesses');
     if (!mensagemFeedbackInteresses && vitrineInteresses) {
         const p = document.createElement('p');
-        p.className = 'mensagem-feedback-interesses'; // Usar a classe definida no HTML se houver
+        p.className = 'mensagem-feedback-interesses';
         Object.assign(p.style, { display: 'none', width: '100%', textAlign: 'center', padding: '30px 20px' });
-        vitrineInteresses.parentNode.insertBefore(p, vitrineInteresses); // Insere ANTES da vitrine de interesses
+        vitrineInteresses.parentNode.insertBefore(p, vitrineInteresses);
         mensagemFeedbackInteresses = p;
     }
     
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (idsInteresseDoLocalStorage.length === 0) {
                 if (mensagemInicialInteresses) mensagemInicialInteresses.style.display = 'none';
                 if (mensagemFeedbackInteresses) { mensagemFeedbackInteresses.textContent = "Você ainda não marcou nenhum veículo como interesse."; mensagemFeedbackInteresses.style.display = 'block';}
-                if (vitrineInteresses) vitrineInteresses.appendChild(mensagemFeedbackInteresses); // Adiciona se não estiver lá
+                if (vitrineInteresses) vitrineInteresses.appendChild(mensagemFeedbackInteresses);
             } else {
                 carrosInteressadosBase = todosOsCarrosGeral.filter(carro => idsInteresseDoLocalStorage.includes(carro.id));
                 carrosInteressadosFiltrados = [...carrosInteressadosBase];
@@ -75,13 +75,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!vitrineInteresses) { console.error("#vitrine-interesses não encontrado."); return; }
         vitrineInteresses.innerHTML = ''; 
         if (mensagemFeedbackInteresses) mensagemFeedbackInteresses.style.display = 'none';
-        if (mensagemInicialInteresses) mensagemInicialInteresses.style.display = 'none'; // Garante que msg inicial suma
+        if (mensagemInicialInteresses) mensagemInicialInteresses.style.display = 'none';
 
         if (listaDeCarros.length === 0) {
             let msg = 'Você não tem veículos de interesse ou nenhum corresponde aos critérios.';
             if (searchBarInteresses && searchBarInteresses.value.trim() !== '') { 
                  msg = `Nenhum veículo de interesse encontrado para "${searchBarInteresses.value.trim()}".`;
-            } else if (carrosInteressadosBase.length === 0) { // Se a lista base de interesses já estava vazia
+            } else if (carrosInteressadosBase.length === 0) {
                 msg = 'Você ainda não marcou nenhum veículo como interesse.';
             }
 
@@ -98,8 +98,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const pMensagemExistente = vitrineInteresses.querySelector('.mensagem-feedback-interesses, .mensagem-inicial-interesses');
         if(pMensagemExistente) pMensagemExistente.remove();
         
-        // ... (Resto da função exibirCarrosDeInteresseDaPagina, criando cards, é igual à versão anterior)
-        // ...
         paginaAtualInteresses = pagina;
         const inicio = (pagina - 1) * itensPorPagina;
         const fim = inicio + itensPorPagina;
@@ -135,8 +133,6 @@ document.addEventListener('DOMContentLoaded', function() {
         configurarPaginacaoInteresses(listaDeCarros);
     }
     
-    // (Funções configurarPaginacaoInteresses, criarBotaoPaginacaoInteresses, lógica da busca para interesses, lógica do menu - permanecem iguais)
-    // ...
     function configurarPaginacaoInteresses(listaDeCarros = carrosInteressadosFiltrados) { 
         if (!paginacaoContainerInteresses ) { return; } 
         paginacaoContainerInteresses.innerHTML = ''; 
@@ -181,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function() {
             carro.nome.toLowerCase().includes(termoBusca) ||
             carro.marca.toLowerCase().includes(termoBusca)
         );
-        paginaAtualInteresses = 1; // Resetar para a primeira página ao buscar
+        paginaAtualInteresses = 1; 
         exibirCarrosDeInteresseDaPagina(paginaAtualInteresses, carrosInteressadosFiltrados); 
     }
     const btnMenuInteresses = document.getElementById('btn-menu');

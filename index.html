@@ -5,29 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Concessionária Nunes</title>
     <link rel="stylesheet" href="style.css">
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-
-    <!-- SEUS LINKS DE FAVICON CORRETOS -->
     <link rel="apple-touch-icon" sizes="180x180" href="images/icon/apple-touch-icon.png"> 
     <link rel="icon" type="image/png" sizes="32x32" href="images/icon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/icon/favicon-16x16.png">
-    <!-- Adicione o link para o manifest se você o tiver na pasta images/icon/ -->
-    <!-- <link rel="manifest" href="images/icon/site.webmanifest"> -->
 </head>
 <body>
-    <header>
+<header>
         <button id="btn-menu" aria-label="Abrir menu" aria-expanded="false">☰</button>
-        
         <div class="logo-container">
             <a href="index.html" aria-label="Página Inicial - Concessionária Nunes">
                 <img src="images/logo/logo.png" alt="Logo Concessionária Nunes" id="header-logo">
             </a>
         </div>
-
         <div class="search-container">
             <input type="search" id="search-bar" placeholder="Buscar veículo..." aria-label="Buscar veículo">
             <button id="search-btn" aria-label="Buscar">
@@ -36,7 +28,6 @@
                 </svg>
             </button>
         </div>
-        
         <nav id="nav-menu">
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -51,7 +42,6 @@
     <main>
         <h2>Nossos Veículos</h2>
         <div id="vitrine-carros">
-             <!-- Mensagem de feedback para busca será manipulada pelo JS -->
             <p class="mensagem-feedback" style="width:100%; text-align: center; padding: 30px; display: none;"></p>
         </div>
         <div id="paginacao"></div>
