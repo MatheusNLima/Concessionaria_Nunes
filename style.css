@@ -118,10 +118,10 @@ input[type="search"]::-moz-search-cancel-button { display: none;}
 #search-bar-interesses::placeholder { color: #ced4da; /* Cinza mais claro para placeholder */ }
 #search-bar:focus,
 #search-bar-interesses:focus { 
-    border-color: #80bdff; /* Azul de destaque do Bootstrap para foco */
+    border-color: #6c757d; /* Azul de destaque do Bootstrap para foco */
     background-color: #495057; 
     width: 230px; 
-    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); /* Sombra de foco estilo Bootstrap */
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25); /* Sombra de foco estilo Bootstrap */
 }
 
 #search-btn,
