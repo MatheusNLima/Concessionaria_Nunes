@@ -29,6 +29,7 @@ header {
     color: white;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: 70px; 
     padding: 0 15px; 
     position: relative; 
@@ -45,10 +46,10 @@ header {
     color: #e9ecef; /* Cinza claro para ícones */       
     cursor: pointer;
     padding: 10px; 
-    margin-right: 10px; 
     z-index: 1002;   
     flex-shrink: 0;   
     transition: opacity 0.2s ease-out, width 0.2s ease-out, padding 0.2s ease-out, margin 0.2s ease-out, color 0.2s ease-in-out;
+    order: 1;
 }
 #btn-menu:hover {
     color: white; /* Destaque no hover */
@@ -57,13 +58,16 @@ header {
 
 /* Container do Logo */
 .logo-container {
-    flex-grow: 1; 
-    display: flex;
-    justify-content: center; 
-    align-items: center;
-    height: 100%;
-    transition: opacity 0.2s ease-out, width 0.2s ease-out, flex-grow 0.2s ease-out;
-    overflow: hidden;
+    position: absolute; /* Tira do fluxo para centralização precisa */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /* A mágica da centralização */
+    line-height: 0; /* Evita espaços extras abaixo da imagem */
+    z-index: 1001; /* Garante que esteja visível, mas o botão de menu (1002) pode ficar por cima se necessário */
+    /* A transição aqui não fará muito sentido com position absolute,
+       a menos que você mude o display dele no modo de busca ativa.
+       Para o modo de busca ativa no mobile, vamos esconder via header.search-active */
+    transition: opacity 0.2s ease-out; 
 }
 
 .logo-container a {
@@ -82,8 +86,9 @@ header {
 .search-container {
     display: flex;
     align-items: center;
-    margin-left: 10px; 
+    /* margin-left: auto; Com o logo em position absolute e header com space-between, ele vai para a direita */
     flex-shrink: 0; 
+    order: 3; /* Mantém a busca como último item no fluxo normal */
 }
 
 /* Estilo para remover o 'x' do input search (mantido) */
@@ -121,7 +126,7 @@ input[type="search"]::-moz-search-cancel-button { display: none;}
     border-color: #6c757d; /* Azul de destaque do Bootstrap para foco */
     background-color: #495057; 
     width: 230px; 
-    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25); /* Sombra de foco estilo Bootstrap */
+    box-shadow: 0 0 0 0.2rem rgba(75, 74, 74, 0.25); /* Sombra de foco estilo Bootstrap */
 }
 
 #search-btn,
