@@ -8,13 +8,16 @@
 /* Estilos Gerais */
 html {
     height: 100%; 
+    scroll-behavior: smooth; /* Adiciona rolagem suave para links internos (como o scroll to top da paginação) */
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    background-color: #f4f4f4;
-    line-height: 1.6;
-    color: #333;
+    /* SUGESTÃO: Usar Google Fonts para melhor tipografia */
+    /* Exemplo com Montserrat para títulos e Open Sans para corpo */
+    font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color: #f8f9fa; /* Tom de cinza um pouco mais claro e moderno para o fundo */
+    line-height: 1.65; /* Aumentar um pouco para melhor legibilidade */
+    color: #495057;    /* Cinza escuro para texto, menos "duro" que #333 */
     min-height: 100%; 
     display: flex; 
     flex-direction: column; 
@@ -22,41 +25,45 @@ body {
 
 /* --- Header --- */
 header {
-    background-color: #2c3e50;
+    background-color: #212529; /* Um preto/cinza escuro mais profundo */
     color: white;
     display: flex;
     align-items: center;
-    /* justify-content: space-between; Será ajustado com .search-active */
     height: 70px; 
     padding: 0 15px; 
     position: relative; 
     z-index: 1001;
-    overflow: hidden; /* Para evitar que o logo cause overflow quando width:0 */
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra sutil no header */
 }
 
 /* Botão do Menu */
 #btn-menu {
-    font-size: 1.8em; 
+    font-size: 1.7em; /* Ajuste fino */
     background: none;        
     border: none;          
-    color: white;          
+    color: #e9ecef; /* Cinza claro para ícones */       
     cursor: pointer;
     padding: 10px; 
     margin-right: 10px; 
     z-index: 1002;   
     flex-shrink: 0;   
-    transition: opacity 0.2s ease-out, width 0.2s ease-out, padding 0.2s ease-out, margin 0.2s ease-out;
+    transition: opacity 0.2s ease-out, width 0.2s ease-out, padding 0.2s ease-out, margin 0.2s ease-out, color 0.2s ease-in-out;
 }
+#btn-menu:hover {
+    color: white; /* Destaque no hover */
+}
+
 
 /* Container do Logo */
 .logo-container {
-    flex-grow: 1; /* Em estado normal, permite que o logo ocupe o centro */
+    flex-grow: 1; 
     display: flex;
     justify-content: center; 
     align-items: center;
     height: 100%;
     transition: opacity 0.2s ease-out, width 0.2s ease-out, flex-grow 0.2s ease-out;
-    overflow: hidden; /* Para o logo não causar overflow ao 'sumir' */
+    overflow: hidden;
 }
 
 .logo-container a {
@@ -65,9 +72,9 @@ header {
 }
 
 #header-logo {
-    height: 55px; 
+    height: 48px; /* SUGESTÃO: Ajustar para melhor proporção com header de 70px */
     width: auto;  
-    max-height: calc(100% - 10px); 
+    max-height: calc(100% - 16px); /* Mais respiro */
     display: block; 
 }
 
@@ -80,7 +87,7 @@ header {
 }
 
 /* Estilo para remover o 'x' do input search (mantido) */
-#search-bar::-webkit-search-decoration,
+#search-bar::-webkit-search-decoration, /* ...etc... (igual antes) */
 #search-bar::-webkit-search-cancel-button,
 #search-bar::-webkit-search-results-button,
 #search-bar::-webkit-search-results-decoration,
@@ -95,126 +102,221 @@ input[type="search"]::-moz-search-cancel-button { display: none;}
 
 #search-bar,
 #search-bar-interesses {
-    padding: 8px 12px;
-    border: 1px solid #4a5f73; border-right: none; border-radius: 20px 0 0 20px; 
-    font-size: 0.9em; height: 38px; outline: none;
-    background-color: #3e5368; color: white;
+    padding: 8px 15px; /* Um pouco mais de padding */
+    border: 1px solid #495057; /* Tom de cinza escuro */
+    border-right: none; 
+    border-radius: 20px 0 0 20px; 
+    font-size: 0.9em; height: 40px; /* Ligeiramente mais alto */
+    outline: none;
+    background-color: #343a40; /* Cinza escuro para o fundo do input */
+    color: white;
     width: 180px; 
     transition: width 0.3s ease-in-out, background-color 0.2s, border-color 0.2s;
+    font-family: inherit; /* Herda a fonte do body */
 }
 #search-bar::placeholder,
-#search-bar-interesses::placeholder { color: #9aabbc; }
+#search-bar-interesses::placeholder { color: #ced4da; /* Cinza mais claro para placeholder */ }
 #search-bar:focus,
-#search-bar-interesses:focus { border-color: #7792ac; background-color: #4f687e; width: 220px; }
+#search-bar-interesses:focus { 
+    border-color: #80bdff; /* Azul de destaque do Bootstrap para foco */
+    background-color: #495057; 
+    width: 230px; 
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25); /* Sombra de foco estilo Bootstrap */
+}
 
 #search-btn,
 #search-btn-interesses {
-    background-color: #3e5368; color: white; border: 1px solid #4a5f73; border-left: none; 
-    padding: 0 15px; height: 38px; cursor: pointer;
+    background-color: #343a40; /* Mesmo fundo do input */
+    color: white; 
+    border: 1px solid #495057; 
+    border-left: none; 
+    padding: 0 15px; height: 40px; cursor: pointer;
     border-radius: 0 20px 20px 0; display: flex; align-items: center; justify-content: center;
     transition: background-color 0.2s;
 }
 #search-btn:hover,
-#search-btn-interesses:hover { background-color: #4f687e; }
+#search-btn-interesses:hover { background-color: #495057; }
 #search-btn svg,
 #search-btn-interesses svg { width: 16px; height: 16px; fill: white; }
 
 
 /* --- Responsividade do Header e Busca --- */
 @media (max-width: 768px) { 
-    /* Header em estado padrão mobile (busca não ativa) */
-    header:not(.search-active) {
-        justify-content: space-between; /* Botão de menu e botão de busca nas extremidades, logo no centro via absolute */
-    }
-    header:not(.search-active) .logo-container {
-        position: absolute; /* Centraliza quando busca NÃO está ativa */
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        opacity: 1;
-        visibility: visible;
-    }
+    header:not(.search-active) { justify-content: space-between; }
+    header:not(.search-active) .logo-container { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); opacity: 1; visibility: visible; }
     header:not(.search-active) #search-bar,
-    header:not(.search-active) #search-bar-interesses {
-        display: none; /* Barra de texto escondida */
-    }
+    header:not(.search-active) #search-bar-interesses { display: none; }
     header:not(.search-active) #search-btn, 
-    header:not(.search-active) #search-btn-interesses { /* Botão é só a lupa */
-        background: none; border: none; padding: 8px;
-        margin-left: auto; /* Empurra para a direita */
-        border-radius: 50%; height: 40px; width: 40px;
-    }
+    header:not(.search-active) #search-btn-interesses { background: none; border: none; padding: 8px; margin-left: auto; border-radius: 50%; height: 40px; width: 40px;}
 
-    /* Header em estado de BUSCA ATIVA no mobile */
-    header.search-active {
-        padding: 0; /* Sem padding lateral para a busca ocupar tudo */
-        justify-content: flex-start; /* Alinha a barra à esquerda */
-    }
+    header.search-active { padding: 0; justify-content: flex-start; }
     header.search-active #btn-menu,
-    header.search-active .logo-container {
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        width: 0 !important; /* Importante para forçar colapso */
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow: hidden;
-        flex-shrink: 1; /* Permite encolher completamente */
-    }
-    header.search-active .search-container {
-        width: 100%; 
-        margin-left: 0;
-        padding: 0 10px; /* Padding interno para o search-container */
-    }
+    header.search-active .logo-container { opacity: 0; visibility: hidden; pointer-events: none; width: 0 !important; margin: 0 !important; padding: 0 !important; overflow: hidden; flex-shrink: 1;}
+    header.search-active .search-container { width: 100%; margin-left: 0; padding: 0 10px; }
     header.search-active #search-bar,
-    header.search-active #search-bar-interesses {
-        display: block; 
-        flex-grow: 1; 
-        width: auto;
-        height: 42px; 
-        border-radius: 25px 0 0 25px;
-        border: 1px solid #4a5f73; border-right: none; 
-        padding-left: 15px; 
-    }
+    header.search-active #search-bar-interesses { display: block; flex-grow: 1; width: auto; height: 42px; border-radius: 25px 0 0 25px; border: 1px solid #495057; border-right: none; padding-left: 15px; }
     header.search-active #search-btn,
-    header.search-active #search-btn-interesses {
-        background-color: #3e5368; 
-        border: 1px solid #4a5f73; border-left: none;
-        border-radius: 0 25px 25px 0;
-        width: 45px; height: 42px;
-        margin-left: 0; 
-        padding: 0 12px; /* Ajustar padding do botão para o ícone */
-        flex-shrink: 0;
-    }
+    header.search-active #search-btn-interesses { background-color: #3e5368; border: 1px solid #495057; border-left: none; border-radius: 0 25px 25px 0; width: 45px; height: 42px; margin-left: 0; padding: 0 12px; flex-shrink: 0;}
 }
 
-/* ... (Resto do style.css, a partir de #nav-menu, permanece IGUAL à última versão completa) ... */
-#nav-menu { display: none; position: fixed; top: 0; left: -260px; width: 250px; height: 100%; background-color: #34495e; box-shadow: 3px 0 10px rgba(0,0,0,0.2); z-index: 1000; transition: left 0.3s ease-in-out; padding-top: 70px; }
+
+/* --- Menu de Navegação --- */
+#nav-menu { 
+    /* SUGESTÃO: Usar fonte de título */
+    font-family: 'Montserrat', sans-serif; 
+    font-weight: 500; /* Um pouco mais de peso */
+    display: none; position: fixed; top: 0; left: -260px; width: 250px; height: 100%; 
+    background-color: #343a40; /* Fundo um pouco mais escuro/sólido */
+    box-shadow: 3px 0 10px rgba(0,0,0,0.2); 
+    z-index: 1000; transition: left 0.3s ease-in-out; padding-top: 70px; 
+}
 #nav-menu.ativo { display: block; left: 0;}
 #nav-menu ul { list-style: none;}
-#nav-menu ul li a { display: block; padding: 15px 25px; color: #ecf0f1; text-decoration: none; border-bottom: 1px solid #2c3e50; font-size: 1em; transition: background-color 0.2s;}
-#nav-menu ul li a:hover { background-color: #007bff; color: white;}
-main { padding: 25px; max-width: 1600px; width: 100%; margin-left: auto; margin-right: auto; flex-grow: 1; }
-main h2 { text-align: center; margin-bottom: 35px; font-size: 2em; font-weight: 600; color: #2c3e50;}
-#vitrine-carros, #vitrine-interesses { display: flex; flex-wrap: wrap; gap: 25px; justify-content: center; margin-bottom: 35px; align-items: stretch; }
-.carro-card { border: 1px solid #ddd; border-radius: 10px; padding: 20px; background-color: white; box-shadow: 0 5px 15px rgba(0,0,0,0.07); display: flex; flex-direction: column; overflow: hidden; cursor: pointer; transition: transform 0.25s ease-out, box-shadow 0.25s ease-out, border-color 0.2s ease-out;}
-.carro-card:hover { transform: translateY(-6px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); border-color: #007bff; }
-.carro-card { width: 100%; max-width: 380px;}
-.carro-card img { width: 100%; height: 210px; object-fit: cover; border-bottom: 1px solid #eee; margin-bottom: 15px; border-radius: 6px 6px 0 0;}
-.carro-card h3 { margin-bottom: 8px; font-size: 1.25em; color: #34495e; line-height: 1.3; min-height: 2.6em;}
-.carro-card .info { font-size: 0.9em; color: #7f8c8d; margin-bottom: 10px;}
-.carro-card .descricao { font-size: 0.95em; color: #555; margin-bottom: 15px; flex-grow: 1; min-height: 4.5em;}
-.carro-card .preco { font-weight: 700; color: #27ae60; font-size: 1.3em; margin-top: auto; text-align: right;}
-#paginacao, #paginacao-interesses { text-align: center; margin-top: 40px; padding-bottom: 25px;}
-#paginacao button, #paginacao-interesses button { background-color: #34495e; color: white; border: none; padding: 12px 18px; margin: 0 5px; border-radius: 6px; cursor: pointer; transition: background-color 0.2s, transform 0.1s; font-size: 1em; font-weight: 500;}
-#paginacao button:hover:not(:disabled), #paginacao-interesses button:hover:not(:disabled) { background-color: #007bff; transform: translateY(-2px);}
-#paginacao button:disabled, #paginacao-interesses button:disabled { background-color: #bdc3c7; color: #7f8c8d; cursor: not-allowed; transform: none;}
-footer { background-color: #2c3e50; color: #ecf0f1; text-align: center; padding: 2em 0; width: 100%;}
-footer p { font-size: 0.95em;}
+#nav-menu ul li a { 
+    display: block; padding: 16px 25px; /* Mais padding vertical */
+    color: #f8f9fa; /* Texto do menu bem claro */
+    text-decoration: none; 
+    border-bottom: 1px solid #495057; /* Borda divisória mais sutil */
+    font-size: 1em; transition: background-color 0.2s, color 0.2s;
+    letter-spacing: 0.5px; /* Leve espaçamento entre letras */
+}
+#nav-menu ul li a:hover { background-color: #0069d9; color: white;} /* Azul mais escuro no hover */
 
-@media (min-width: 1200px) { .carro-card { width: calc(25% - 18.75px); max-width: 350px; } .carro-card img { height: 190px; } .carro-card h3 { font-size: 1.2em; min-height: 2.4em; } .carro-card .descricao { font-size: 0.9em; min-height: 4em; } .carro-card .preco { font-size: 1.2em; } main h2 { font-size: 2.4em; }}
-@media (min-width: 880px) and (max-width: 1199.98px) { .carro-card { width: calc(33.333% - 16.67px); max-width: 360px; } .carro-card img { height: 200px; }}
-@media (min-width: 600px) and (max-width: 879.98px) { .carro-card { width: calc(50% - 12.5px); max-width: 400px; } .carro-card img { height: 220px; }}
-@media (max-width: 420px) { #header-logo { height: 35px; } #btn-menu { font-size: 1.6em; padding: 0 8px; }}
-body#detalhe-page main#detalhe-carro-container, main { flex-grow: 1;}
-.mensagem-feedback, .mensagem-feedback-interesses, .mensagem-inicial-interesses { width: 100%; text-align: center; padding: 40px 20px; font-size: 1.1em; color: #555;}
+/* --- Conteúdo Principal --- */
+main { 
+    padding: 30px 20px; /* Aumentar padding um pouco */
+    max-width: 1320px;  /* Um pouco mais largo para conteúdo principal */
+    width: 100%; margin-left: auto; margin-right: auto; 
+    flex-grow: 1; 
+}
+main h2 { 
+    text-align: center; margin-bottom: 40px; /* Mais espaço abaixo do título */
+    font-size: 2.2em; font-weight: 600; 
+    color: #343a40; /* Cor de título mais escura */
+    /* SUGESTÃO: Usar fonte de título */
+    font-family: 'Montserrat', sans-serif; 
+}
+
+/* --- Vitrines e Cards --- */
+#vitrine-carros, #vitrine-interesses { 
+    display: flex; flex-wrap: wrap; gap: 30px; /* Aumentar gap */
+    justify-content: center; margin-bottom: 35px; align-items: stretch; 
+}
+.carro-card { 
+    border: 1px solid #dee2e6; /* Borda mais clara */
+    border-radius: 12px; /* Cantos mais arredondados */
+    padding: 20px; background-color: white; 
+    box-shadow: 0 4px 12px rgba(0,0,0,0.07); /* Sombra mais definida */
+    display: flex; flex-direction: column; 
+    overflow: hidden; cursor: pointer; 
+    transition: transform 0.25s ease-out, box-shadow 0.25s ease-out, border-color 0.2s ease-out;
+}
+.carro-card:hover { 
+    transform: translateY(-5px) scale(1.02); /* Efeito de levantar e leve zoom */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1); 
+    border-color: #007bff; 
+}
+.carro-card { width: 100%; max-width: 360px;} /* Ligeira redução na largura máxima para mobile */
+.carro-card img { 
+    width: 100%; height: 200px; /* Ajuste na altura */
+    object-fit: cover; border-bottom: 1px solid #e9ecef; /* Borda inferior mais clara */
+    margin-bottom: 15px; border-radius: 8px 8px 0 0; /* Raio um pouco maior nos cantos da imagem */
+}
+.carro-card h3 { 
+    margin-bottom: 10px; /* Mais espaço */
+    font-size: 1.2em; /* Ligeiramente menor para equilíbrio */
+    color: #212529; /* Título do card bem escuro */
+    line-height: 1.4; 
+    min-height: auto; /* Deixar o conteúdo definir, ou ajustar se necessário para alinhar em linhas */
+    font-family: 'Montserrat', sans-serif; /* Fonte de título para o nome do carro */
+    font-weight: 600;
+}
+.carro-card .info { 
+    font-size: 0.85em; /* Menor */
+    color: #6c757d; /* Cinza mais claro */
+    margin-bottom: 10px;
+}
+.carro-card .descricao { 
+    font-size: 0.9em; /* Ligeiramente menor */
+    color: #495057; 
+    margin-bottom: 15px; flex-grow: 1; 
+    min-height: 4.5em;
+}
+.carro-card .preco { 
+    font-weight: 700; 
+    color: #198754; /* Verde mais moderno (Bootstrap success color) */
+    font-size: 1.25em; /* Ligeiramente menor */
+    margin-top: auto; 
+    text-align: right;
+    font-family: 'Montserrat', sans-serif; /* Fonte de destaque */
+}
+
+/* --- Paginação --- */
+#paginacao, #paginacao-interesses { 
+    text-align: center; margin-top: 40px; padding-bottom: 25px;
+}
+#paginacao button, #paginacao-interesses button { 
+    background-color: #6c757d; /* Cinza secundário */
+    color: white; border: none; padding: 10px 16px; /* Um pouco menor */
+    margin: 0 4px; border-radius: 6px; cursor: pointer; 
+    transition: background-color 0.2s, transform 0.1s; font-size: 0.95em; font-weight: 500;
+    font-family: 'Open Sans', sans-serif; /* Fonte do corpo para consistência */
+}
+#paginacao button:hover:not(:disabled), 
+#paginacao-interesses button:hover:not(:disabled) { 
+    background-color: #0069d9; /* Azul mais escuro no hover (cor primária do Bootstrap mais escura) */
+    transform: translateY(-1px);
+}
+#paginacao button:disabled, 
+#paginacao-interesses button:disabled { 
+    background-color: #e9ecef; /* Fundo claro para desabilitado */
+    color: #6c757d; 
+    cursor: not-allowed; transform: none;
+}
+
+/* --- Footer --- */
+footer { 
+    background-color: #212529; /* Mesmo preto do header */
+    color: #adb5bd; /* Cinza claro para texto */
+    text-align: center; 
+    padding: 2em 0; width: 100%;
+}
+footer p { font-size: 0.9em;}
+
+/* --- Media Queries Gerais --- */
+@media (min-width: 1200px) { 
+    .carro-card { width: calc(25% - 22.5px); max-width: none; } /* Gap de 30px -> (3*30)/4 = 22.5 */
+    .carro-card img { height: 180px; } /* Reduzir um pouco se tiver mais cards */
+    main h2 { font-size: 2.5em; margin-bottom: 50px;}
+}
+@media (min-width: 880px) and (max-width: 1199.98px) { 
+    .carro-card { width: calc(33.333% - 20px); max-width: none; } /* Gap de 30px -> (2*30)/3 = 20 */
+    .carro-card img { height: 190px; }
+}
+@media (min-width: 600px) and (max-width: 879.98px) { 
+    .carro-card { width: calc(50% - 15px); max-width: none; } /* Gap de 30px -> (1*30)/2 = 15 */
+    .carro-card img { height: 200px; }
+}
+@media (max-width: 420px) { 
+    #header-logo { height: 40px; } /* Logo um pouco menor em telas muito pequenas */
+    #btn-menu { font-size: 1.6em; padding: 0 8px; }
+    main h2 { font-size: 1.8em; margin-bottom: 30px; }
+    .carro-card h3 {font-size: 1.1em;}
+    .carro-card .preco {font-size: 1.15em;}
+}
+
+/* Estilos para body das páginas internas e mensagem de feedback (mantidos e melhorados) */
+body#detalhe-page main#detalhe-carro-container, 
+main { /* Aplicando flex-grow ao main de forma geral */
+    flex-grow: 1;
+}
+.mensagem-feedback, 
+.mensagem-feedback-interesses, 
+.mensagem-inicial-interesses {
+    width: 100%;
+    text-align: center;
+    padding: 50px 20px; /* Mais padding vertical */
+    font-size: 1.15em; /* Um pouco maior */
+    color: #6c757d; /* Cinza para a mensagem */
+    font-style: italic; /* Itálico para dar um toque */
+}
