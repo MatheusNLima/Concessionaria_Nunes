@@ -161,7 +161,7 @@ input[type="search"]::-moz-search-cancel-button { display: none;}
     header.search-active #search-bar,
     header.search-active #search-bar-interesses { display: block; flex-grow: 1; width: auto; height: 42px; border-radius: 25px 0 0 25px; border: 1px solid #495057; border-right: none; padding-left: 15px; }
     header.search-active #search-btn,
-    header.search-active #search-btn-interesses { background-color: #3e5368; border: 1px solid #495057; border-left: none; border-radius: 0 25px 25px 0; width: 45px; height: 42px; margin-left: 0; padding: 0 12px; flex-shrink: 0;}
+    header.search-active #search-btn-interesses { background-color: #343a40; border: 1px solid #495057; border-left: none; border-radius: 0 25px 25px 0; width: 45px; height: 42px; margin-left: 0; padding: 0 12px; flex-shrink: 0;}
 }
 
 
