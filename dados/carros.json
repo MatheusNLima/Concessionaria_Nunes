@@ -1,14 +1,14 @@
 [
     {
         "id": 1,
-        "nome": "Hilux SW4 Diamond",
+        "nome": "Hilux",
         "marca": "Toyota",
         "ano": 2025,
-        "preco": "R$ 415.000,00",
+        "preco": "R$ 270.000,00",
         "fotosUrls": [ 
-            "images/hilux_sw4/hilux_frente.webp",
-            "images/hilux_sw4/hilux_costas.webp",
-            "images/hilux_sw4/hilux_interior.webp"
+            "images/hilux/hilux_frente.webp",
+            "images/hilux/hilux_costas.webp",
+            "images/hilux/hilux_interior.webp"
         ],
         "descricao": "Robustez e sofisticação em um só veículo. A Hilux SW4 Diamond combina potência, tecnologia de ponta e conforto premium para quem exige o máximo dentro e fora da estrada."
     },
@@ -40,14 +40,14 @@
     },
     {
         "id": 4,
-        "nome": "Onix Plus Turbo",
-        "marca": "Chevrolet",
-        "ano": 2023,
-        "preco": "R$ 98.000,00",
+        "nome": "SW4 Diamond",
+        "marca": "Toyota",
+        "ano": 2024,
+        "preco": "R$ 415.000,00",
         "fotosUrls": [
-            "images/onix_plus_turbo/onix_frente.webp",
-            "images/onix_plus_turbo/onix_costas.webp",
-            "images/onix_plus_turbo/onix_interior.webp"
+            "images/hilux_sw4/sw4_frente.webp",
+            "images/hilux_sw4/sw4_costas.webp",
+            "images/hilux_sw4/sw4_interior.webp"
         ],
         "descricao": "Sedan compacto e eficiente, com motor turbo para uma condução ágil na cidade e estrada."
     },
@@ -315,5 +315,18 @@
             "images/fusca_tsi/fusca_tsi_interior2.webp"
         ],
         "descricao": "Um clássico reimaginado com motor turbo e design moderno, perfeito para quem busca estilo e performance."
+    },
+        {
+        "id": 25,
+        "nome": "Onix Plus Turbo",
+        "marca": "Chevrolet",
+        "ano": 2023,
+        "preco": "R$ 98.000,00",
+        "fotosUrls": [
+            "images/onix_plus_turbo/onix_frente.webp",
+            "images/onix_plus_turbo/onix_costas.webp",
+            "images/onix_plus_turbo/onix_interior.webp"
+        ],
+        "descricao": "Sedan compacto e eficiente, com motor turbo para uma condução ágil na cidade e estrada."
     }
 ]
