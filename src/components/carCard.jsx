@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 function CarCard({ carro }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const intervalRef = useRef(null);
-  const placeholderFallbackCard = "/placeholder_img/placeholder-400x300_fallback.png";
+  const placeholderSrc = `${import.meta.env.BASE_URL}placeholder_img/placeholder-400x300_fallback.png`;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,9 +29,10 @@ function CarCard({ carro }) {
     navigate(`/carro/${carro.id}`);
   };
 
-  const fotoAtual = (carro.fotosUrls && carro.fotosUrls.length > 0 && carro.fotosUrls[currentIndex]) 
-                    ? carro.fotosUrls[currentIndex] 
-                    : placeholderFallbackCard;
+
+  const fotoAtual = (carro.fotosUrls && carro.fotosUrls.length > 0 && carro.fotosUrls[currentIndex])
+                    ? `${import.meta.env.BASE_URL}${carro.fotosUrls[currentIndex]}`
+                    : placeholderSrc;
 
   if (!carro) {
     return (
@@ -42,22 +43,22 @@ function CarCard({ carro }) {
   }
 
   return (
-    <div 
-        className="carro-card" 
-        data-carro-id={carro.id} 
-        onMouseEnter={handleMouseEnter} 
+    <div
+        className="carro-card"
+        data-carro-id={carro.id}
+        onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onClick={handleCardClick}
-        role="button" 
-        tabIndex={0} 
-        onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') handleCardClick(); }} 
+        role="button"
+        tabIndex={0}
+        onKeyPress={(e) => { if (e.key === 'Enter' || e.key === ' ') handleCardClick(); }}
     >
-      <img 
+      <img
         src={fotoAtual}
-        alt={`Foto de ${carro.nome}`} 
-        onError={(e) => { 
-          e.target.onerror = null; 
-          e.target.src = placeholderFallbackCard; 
+        alt={`Foto de ${carro.nome}`}
+        onError={(e) => {
+          e.target.onerror = null;
+          e.target.src = placeholderSrc;
         }}
       />
       <h3>{carro.nome || "Nome Indisponível"}</h3>

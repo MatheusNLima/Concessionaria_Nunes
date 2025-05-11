@@ -75,6 +75,9 @@ function Header({ termoBusca, onBuscaChange, onNavigateHome, onNavigateInteresse
             setMenuAtivo(false); 
         };
 
+        // CORREÇÃO APLICADA AQUI
+        const logoSrc = `${import.meta.env.BASE_URL}images/logo/logo.png`;
+
         return (
             <header ref={headerElementRef}> 
                 <button id="btn-menu" aria-label="Abrir menu" aria-expanded={menuAtivo} onClick={toggleMenu}>
@@ -82,7 +85,7 @@ function Header({ termoBusca, onBuscaChange, onNavigateHome, onNavigateInteresse
                 </button>
                 <div className="logo-container">
                     <a href="#" onClick={(e) => handleNavClick(onNavigateHome, e)} aria-label="Página Inicial - Concessionária Nunes">
-                        <img src="/images/logo/logo.png" alt="Logo Concessionária Nunes" id="header-logo" />
+                        <img src={logoSrc} alt="Logo Concessionária Nunes" id="header-logo" /> {}
                     </a>
                 </div>
                 <div className="search-container" onClick={(e) => e.stopPropagation()}>

@@ -10,7 +10,7 @@ function DetailPage({ todosOsCarros }) {
   const [imagemPrincipal, setImagemPrincipal] = useState('');
   const [interesseMarcado, setInteresseMarcado] = useState(false);
 
-  const placeholderFallbackGlobal = "/placeholder_img/placeholder-400x300_fallback.png";
+  const placeholderSrcGlobal = `${import.meta.env.BASE_URL}placeholder_img/placeholder-400x300_fallback.png`;
 
   useEffect(() => {
     setLoadingThisPage(true);
@@ -19,16 +19,16 @@ function DetailPage({ todosOsCarros }) {
       const encontrado = todosOsCarros.find(c => c.id === idNumerico);
       setCarroSelecionado(encontrado);
       if (encontrado && encontrado.fotosUrls && encontrado.fotosUrls.length > 0) {
-        setImagemPrincipal(encontrado.fotosUrls[0]);
+        setImagemPrincipal(`${import.meta.env.BASE_URL}${encontrado.fotosUrls[0]}`);
       } else if (encontrado) {
-        setImagemPrincipal(placeholderFallbackGlobal);
+        setImagemPrincipal(placeholderSrcGlobal);
       }
       setLoadingThisPage(false);
     } else if (todosOsCarros && todosOsCarros.length === 0) {
         setCarroSelecionado(null);
         setLoadingThisPage(false);
     }
-  }, [carroId, todosOsCarros]);
+  }, [carroId, todosOsCarros, placeholderSrcGlobal]);
 
   useEffect(() => {
     if (carroSelecionado) {
@@ -62,8 +62,8 @@ function DetailPage({ todosOsCarros }) {
     return (
       <div id="detalhe-carro-container" style={{ textAlign: 'center', padding: '50px' }}>
         <p className="mensagem-feedback" style={{display:'block', color: 'red' }}>Carro com ID {carroId} não encontrado.</p>
-        <Link to="/" className="btn-voltar-home" style={{ 
-            display: 'inline-block', padding: '10px 20px', backgroundColor: '#6c757d', 
+        <Link to="/" className="btn-voltar-home" style={{
+            display: 'inline-block', padding: '10px 20px', backgroundColor: '#6c757d',
             color: 'white', textDecoration: 'none', borderRadius: '5px', marginTop: '20px'
             }}>
             « Voltar para a Vitrine
@@ -76,24 +76,28 @@ function DetailPage({ todosOsCarros }) {
     <div id="detalhe-carro-container">
       <div className="detalhe-carro-grid">
         <div className="detalhe-imagens">
-          <img 
-            id="imagem-principal-detalhe" 
-            src={imagemPrincipal || placeholderFallbackGlobal} 
+          <img
+            id="imagem-principal-detalhe"
+            src={imagemPrincipal || placeholderSrcGlobal}
             alt={`Foto principal de ${carroSelecionado.nome}`}
-            onError={(e) => {e.target.onerror = null; e.target.src = placeholderFallbackGlobal;}}
+            onError={(e) => {e.target.onerror = null; e.target.src = placeholderSrcGlobal;}} 
           />
           {carroSelecionado.fotosUrls && carroSelecionado.fotosUrls.length > 1 && (
             <div className="miniaturas">
-              {carroSelecionado.fotosUrls.map((fotoUrl, index) => (
-                <img 
-                  key={index}
-                  src={fotoUrl || placeholderFallbackGlobal} 
-                  alt={`Miniatura ${index + 1} de ${carroSelecionado.nome}`} 
-                  onClick={() => setImagemPrincipal(fotoUrl)}
-                  className={fotoUrl === imagemPrincipal ? 'ativa' : ''}
-                  onError={(e) => {e.target.style.display='none';}}
-                />
-              ))}
+              {carroSelecionado.fotosUrls.map((fotoUrlRelativa, index) => {
+                const fotoUrlCompleta = `${import.meta.env.BASE_URL}${fotoUrlRelativa}`;
+                const miniaturaSrc = fotoUrlRelativa ? fotoUrlCompleta : placeholderSrcGlobal;
+                return (
+                  <img
+                    key={index}
+                    src={miniaturaSrc}
+                    alt={`Miniatura ${index + 1} de ${carroSelecionado.nome}`}
+                    onClick={() => setImagemPrincipal(fotoUrlCompleta)}
+                    className={fotoUrlCompleta === imagemPrincipal ? 'ativa' : ''}
+                    onError={(e) => {e.target.style.display='none';}}
+                  />
+                );
+              })}
             </div>
           )}
         </div>
@@ -102,12 +106,12 @@ function DetailPage({ todosOsCarros }) {
           <p className="marca-ano">{carroSelecionado.marca} - {carroSelecionado.ano}</p>
           <p className="preco-detalhe">{carroSelecionado.preco}</p>
           <p className="descricao-completa">
-            {carroSelecionado.descricao.split('\n').map((str, index, array) => 
+            {carroSelecionado.descricao.split('\n').map((str, index, array) =>
               index === array.length - 1 ? str : <React.Fragment key={index}>{str}<br/></React.Fragment>
             )}
           </p>
-          <button 
-            id="btn-add-interesse" 
+          <button
+            id="btn-add-interesse"
             className={`btn-interesse ${interesseMarcado ? 'marcado' : ''}`}
             onClick={toggleInteresse}
           >
@@ -116,15 +120,15 @@ function DetailPage({ todosOsCarros }) {
         </div>
       </div>
       <div className="botoes-navegacao-detalhe" style={{marginTop: '40px', textAlign: 'center', display: 'flex', justifyContent: 'center', gap: '20px'}}>
-        <Link to="/" className="btn-voltar-pagina" style={{ 
-            padding: '10px 25px', backgroundColor: '#6c757d', 
+        <Link to="/" className="btn-voltar-pagina" style={{
+            padding: '10px 25px', backgroundColor: '#6c757d',
             color: 'white', textDecoration: 'none', borderRadius: '6px',
             fontSize: '1em', fontWeight: '500', fontFamily: "'Open Sans', sans-serif"
             }}>
             « Voltar para Vitrine
         </Link>
-        <Link to="/interesses" className="btn-ver-interesses" style={{ 
-            padding: '10px 25px', backgroundColor: '#007bff', 
+        <Link to="/interesses" className="btn-ver-interesses" style={{
+            padding: '10px 25px', backgroundColor: '#007bff',
             color: 'white', textDecoration: 'none', borderRadius: '6px',
             fontSize: '1em', fontWeight: '500', fontFamily: "'Open Sans', sans-serif"
             }}>
