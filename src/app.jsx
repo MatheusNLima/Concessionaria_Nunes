@@ -19,8 +19,9 @@ function App() {
         setLoading(true);
         setError(null);
         try {
-            const response = await fetch('/dados/carros.json'); 
-            if (!response.ok) { throw new Error(`Erro HTTP ${response.status} ao buscar carros.json`);}
+            const carrosJsonUrl = `${import.meta.env.BASE_URL}dados/carros.json`;
+            const response = await fetch(carrosJsonUrl);
+            if (!response.ok) { throw new Error(`HTTP ${response.status} ao buscar ${carrosJsonUrl}`); }
             const data = await response.json();
             setTodosOsCarros(data);
         } catch (err) { setError(err.message); setTodosOsCarros([]);
