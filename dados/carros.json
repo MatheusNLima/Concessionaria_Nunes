@@ -1,0 +1,332 @@
+[
+    {
+        "id": 1,
+        "nome": "Hilux",
+        "marca": "Toyota",
+        "ano": 2025,
+        "preco": "R$ 270.000,00",
+        "fotosUrls": [ 
+            "/images/hilux/hilux_frente.webp",
+            "/images/hilux/hilux_costas.webp",
+            "/images/hilux/hilux_interior.webp"
+        ],
+        "descricao": "Força, confiabilidade e versatilidade. A Hilux é a picape ideal para enfrentar qualquer desafio com desempenho e durabilidade incomparáveis."
+    },
+    {
+        "id": 2,
+        "nome": "Maverick Hybrid XLT",
+        "marca": "Ford",
+        "ano": 2023,
+        "preco": "R$ 230.000,00",
+        "fotosUrls": [
+            "/images/maverick_hybrid_xlt/maverick_frente.webp",
+            "/images/maverick_hybrid_xlt/maverick_lateral.webp",
+            "/images/maverick_hybrid_xlt/maverick_interior.webp"
+        ],
+        "descricao": "Picape urbana com tecnologia híbrida, oferecendo economia de combustível sem sacrificar a potência."
+    },
+    {
+        "id": 3,
+        "nome": "Civic Si Coupe",
+        "marca": "Honda",
+        "ano": 2024,
+        "preco": "R$ 250.000,00",
+        "fotosUrls": [
+            "/images/civic_si_coupe/civic_si_frente.webp",
+            "/images/civic_si_coupe/civic_si_costas.webp",
+            "/images/civic_si_coupe/civic_si_interior.webp"
+        ],
+        "descricao": "Esportivo com performance afiada e design arrojado, ideal para os amantes de velocidade."
+    },
+    {
+        "id": 4,
+        "nome": "SW4 Diamond",
+        "marca": "Toyota",
+        "ano": 2024,
+        "preco": "R$ 415.000,00",
+        "fotosUrls": [
+            "/images/hilux_sw4/sw4_frente.webp",
+            "/images/hilux_sw4/sw4_costas.webp",
+            "/images/hilux_sw4/sw4_interior.webp"
+        ],
+        "descricao": "Robustez e sofisticação em um só veículo. A Hilux SW4 Diamond combina potência, tecnologia de ponta e conforto premium para quem exige o máximo dentro e fora da estrada."
+    },
+    {
+        "id": 5,
+        "nome": "HB20 Sense",
+        "marca": "Hyundai",
+        "ano": 2024,
+        "preco": "R$ 85.000,00",
+        "fotosUrls": [
+            "/images/hb20_sense/hb20_frente.webp",
+            "/images/hb20_sense/hb20_costas.webp",
+            "/images/hb20_sense/hb20_interior.webp"
+        ],
+        "descricao": "Popular com bom design e recheado de tecnologia para o seu dia a dia."
+    },
+    {
+        "id": 6,
+        "nome": "Kwid E-Tech",
+        "marca": "Renault",
+        "ano": 2023,
+        "preco": "R$ 140.000,00",
+        "fotosUrls": [ 
+            "/images/kwid_e-tech/kwid_frente.webp",
+            "/images/kwid_e-tech/kwid_costas.webp",
+            "/images/kwid_e-tech/kwid_interior.webp"
+        ],
+        "descricao": "Elétrico acessível e compacto, perfeito para a mobilidade urbana sustentável."
+    },
+    {
+        "id": 7,
+        "nome": "Compass Limited",
+        "marca": "Jeep",
+        "ano": 2023,
+        "preco": "R$ 220.000,00",
+        "fotosUrls": [
+            "/images/compass_limited/compass_frente.webp",
+            "/images/compass_limited/compass_costas.webp",
+            "/images/compass_limited/compass_interior.webp"
+        ],
+        "descricao": "SUV sofisticado com acabamento premium e capacidade off-road característica da Jeep."
+    },
+    {
+        "id": 8,
+        "nome": "Toro Volcano",
+        "marca": "Fiat",
+        "ano": 2024,
+        "preco": "R$ 190.000,00",
+        "fotosUrls": [
+            "/images/toro_volcano/toro_frente.webp",
+            "/images/toro_volcano/toro_costas1.webp", 
+            "/images/toro_volcano/toro_costas2.webp",
+            "/images/toro_volcano/toro_costas3.webp",
+            "/images/toro_volcano/toro_interior.webp"
+        ],
+        "descricao": "Picape versátil que combina o conforto de um SUV com a robustez para o trabalho."
+    },
+    {
+        "id": 9,
+        "nome": "Corolla Cross XRE",
+        "marca": "Toyota",
+        "ano": 2023,
+        "preco": "R$ 185.000,00",
+        "fotosUrls": [
+            "/images/corolla_cross_xre/corolla_frente.webp",
+            "/images/corolla_cross_xre/corolla_costas.webp",
+            "/images/corolla_cross_xre/corolla_interior.webp"
+        ],
+        "descricao": "SUV confiável e espaçoso, com a qualidade e durabilidade reconhecidas da Toyota."
+    },
+    {
+        "id": 10,
+        "nome": "Polo Highline",
+        "marca": "Volkswagen",
+        "ano": 2024,
+        "preco": "R$ 115.000,00",
+        "fotosUrls": [
+            "/images/polo_highline/polo_frente.webp",
+            "/images/polo_highline/polo_costas.webp",
+            "/images/polo_highline/polo_interior.webp"
+        ],
+        "descricao": "Hatch premium com design moderno, tecnologia embarcada e excelente dirigibilidade."
+    },
+    {
+        "id": 11,
+        "nome": "Renegade Longitude",
+        "marca": "Jeep",
+        "ano": 2022,
+        "preco": "R$ 150.000,00",
+        "fotosUrls": [
+            "/images/renegade_longitude/renegade_frente.webp",
+            "/images/renegade_longitude/renegade_costas.webp",
+            "/images/renegade_longitude/renegade_interior.webp"
+        ],
+        "descricao": "Aventura e estilo em um SUV compacto que não teme desafios dentro ou fora da cidade."
+    },
+    {
+        "id": 12,
+        "nome": "Pulse Audace",
+        "marca": "Fiat",
+        "ano": 2023,
+        "preco": "R$ 125.000,00",
+        "fotosUrls": [
+            "/images/pulse_audace/pulse_frente.webp",
+            "/images/pulse_audace/pulse_costas.webp",
+            "/images/pulse_audace/pulse_interior.webp"
+        ],
+        "descricao": "SUV compacto moderno da Fiat, com design italiano e muita personalidade para o seu dia."
+    },
+    {
+        "id": 13,
+        "nome": "Creta N Line",
+        "marca": "Hyundai",
+        "ano": 2024,
+        "preco": "R$ 170.000,00",
+        "fotosUrls": [
+            "/images/creta_n_line/creta_frente.webp",
+            "/images/creta_n_line/creta_costas.webp",
+            "/images/creta_n_line/creta_lateral.webp",
+            "/images/creta_n_line/creta_interior.webp"
+        ],
+        "descricao": "Design esportivo e arrojado na versão N Line do Creta, para quem busca exclusividade."
+    },
+    {
+        "id": 14,
+        "nome": "Tracker Premier",
+        "marca": "Chevrolet",
+        "ano": 2023,
+        "preco": "R$ 145.000,00",
+        "fotosUrls": [
+            "/images/tracker_premier/tracker_frente.webp",
+            "/images/tracker_premier/tracker_costas.webp",
+            "/images/tracker_premier/tracker_interior.webp"
+        ],
+        "descricao": "Conforto e tecnologia em um SUV que oferece segurança e conectividade para toda a família."
+    },
+    {
+        "id": 15,
+        "nome": "Duster Iconic",
+        "marca": "Renault",
+        "ano": 2024,
+        "preco": "R$ 135.000,00",
+        "fotosUrls": [
+            "/images/duster_iconic/duster_frente.webp",
+            "/images/duster_iconic/duster_costas.webp",
+            "/images/duster_iconic/duster_interior.webp"
+        ],
+        "descricao": "Robusto e espaçoso, o Duster é o SUV ideal para quem precisa de versatilidade e bom porta-malas."
+    },
+    {
+        "id": 16,
+        "nome": "Nivus Comfortline",
+        "marca": "Volkswagen",
+        "ano": 2023,
+        "preco": "R$ 130.000,00",
+        "fotosUrls": [
+            "/images/nivus_confortline/nivus_frente.webp",
+            "/images/nivus_confortline/nivus_costas.webp",
+            "/images/nivus_confortline/nivus_interior.webp"
+        ],
+        "descricao": "SUV coupé com estilo inovador e tecnologia VW, oferecendo uma experiência de condução única."
+    },
+    {
+        "id": 17,
+        "nome": "Kicks Advance",
+        "marca": "Nissan",
+        "ano": 2024,
+        "preco": "R$ 138.000,00",
+        "fotosUrls": [
+            "/images/kicks_advance/kicks_frente.webp",
+            "/images/kicks_advance/kicks_costas.webp",
+            "/images/kicks_advance/kicks_interior.webp"
+        ],
+        "descricao": "Tecnologia e design japonês em um SUV ágil e econômico, com muito conforto interno."
+    },
+    {
+        "id": 18,
+        "nome": "C4 Cactus Shine",
+        "marca": "Citroën",
+        "ano": 2023,
+        "preco": "R$ 142.000,00",
+        "fotosUrls": [
+            "/images/c4_shine/c4_frente.webp",  
+            "/images/c4_shine/c4_costas.webp",
+            "/images/c4_shine/c4_interior.webp"
+        ],
+        "descricao": "Conforto e originalidade definem o C4 Cactus, um SUV com suspensão única e design marcante."
+    },
+    {
+        "id": 19,
+        "nome": "Fastback Impetus",
+        "marca": "Fiat",
+        "ano": 2024,
+        "preco": "R$ 155.000,00",
+        "fotosUrls": [
+            "/images/fastback_impetus/fastback_frente.webp",
+            "/images/fastback_impetus/fastback_costas.webp",
+            "/images/fastback_impetus/fastback_interior.webp"
+        ],
+        "descricao": "SUV Coupé da Fiat com design arrojado e motor turbo para uma experiência emocionante."
+    },
+    {
+        "id": 20,
+        "nome": "T-Cross Highline",
+        "marca": "Volkswagen",
+        "ano": 2023,
+        "preco": "R$ 165.000,00",
+        "fotosUrls": [
+            "/images/t-cross_highline/t-cross_frente.webp",
+            "/images/t-cross_highline/t-cross_costas.webp",
+            "/images/t-cross_highline/t-cross_interior.webp"
+        ],
+        "descricao": "SUV compacto VW com muito espaço interno, segurança e tecnologia de ponta."
+    },
+    {
+        "id": 21,
+        "nome": "HR-V Touring",
+        "marca": "Honda",
+        "ano": 2024,
+        "preco": "R$ 195.000,00",
+        "fotosUrls": [
+            "/images/hrv_touring/hrv_frente.webp",
+            "/images/hrv_touring/hrv_costas.webp",
+            "/images/hrv_touring/hrv_interior.webp"
+        ],
+        "descricao": "Nova geração do HR-V, mais sofisticada, com motor turbo e o Magic Seat da Honda."
+    },
+    {
+        "id": 22,
+        "nome": "Commander Overland",
+        "marca": "Jeep",
+        "ano": 2023,
+        "preco": "R$ 280.000,00",
+        "fotosUrls": [
+            "/images/commander_overland/commander_frente.webp",
+            "/images/commander_overland/commander_costas.webp",
+            "/images/commander_overland/commander_interior.webp",
+            "/images/commander_overland/commander_interior2.webp"
+        ],
+        "descricao": "SUV de 7 lugares da Jeep, combinando luxo, tecnologia e capacidade off-road."
+    },
+    {
+        "id": 23,
+        "nome": "BYD Dolphin",
+        "marca": "BYD",
+        "ano": 2024,
+        "preco": "R$ 149.800,00",
+        "fotosUrls": [
+            "/images/byd_dolphin/byd_frente.webp",
+            "/images/byd_dolphin/byd_costas.webp",
+            "/images/byd_dolphin/byd_interior.webp"
+        ],
+        "descricao": "Carro elétrico compacto e ágil, com design moderno e ótima autonomia para a cidade."
+    },
+    {
+        "id": 24,
+        "nome": "Fusca TSI Concept",
+        "marca": "Volkswagen",
+        "ano": 2022,
+        "preco": "R$ 95.000,00",
+        "fotosUrls": [ 
+            "/images/fusca_tsi/fusca_tsi_lateral.webp",
+            "/images/fusca_tsi/fusca_tsi_costas.webp",
+            "/images/fusca_tsi/fusca_tsi_interior.webp",
+            "/images/fusca_tsi/fusca_tsi_interior2.webp"
+        ],
+        "descricao": "Um clássico reimaginado com motor turbo e design moderno, perfeito para quem busca estilo e performance."
+    },
+        {
+        "id": 25,
+        "nome": "Onix Plus Turbo",
+        "marca": "Chevrolet",
+        "ano": 2023,
+        "preco": "R$ 98.000,00",
+        "fotosUrls": [
+            "/images/onix_plus_turbo/onix_frente.webp",
+            "/images/onix_plus_turbo/onix_costas.webp",
+            "/images/onix_plus_turbo/onix_interior.webp"
+        ],
+        "descricao": "Sedan compacto e eficiente, com motor turbo para uma condução ágil na cidade e estrada."
+    }
+]
