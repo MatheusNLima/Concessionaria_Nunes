@@ -75,7 +75,6 @@ function Header({ termoBusca, onBuscaChange, onNavigateHome, onNavigateInteresse
             setMenuAtivo(false); 
         };
 
-        // CORREÇÃO APLICADA AQUI
         const logoSrc = `${import.meta.env.BASE_URL}images/logo/logo.png`;
 
         return (
