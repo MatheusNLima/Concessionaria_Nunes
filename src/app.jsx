@@ -1,13 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import Header from './components/header';
-import Footer from './components/footer';
-import HomePage from './components/homePage';
-import Interesses from './components/interesses';
-import DetailPage from './components/detailPage';
-import LoginPage from './components/LoginPage'; 
-import RegisterPage from './components/RegisterPage';
+import Header from './components/header.jsx'; 
+import Footer from './components/footer.jsx'; 
+import HomePage from './components/homePage.jsx'; 
+import Interesses from './components/interesses.jsx'; 
+import DetailPage from './components/detailPage.jsx';
+import LoginPage from './components/LoginPage.jsx'; 
+import RegisterPage from './components/RegisterPage.jsx';
 
 function App() {
   const [todosOsCarros, setTodosOsCarros] = useState([]);
