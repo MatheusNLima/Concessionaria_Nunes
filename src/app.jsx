@@ -1,10 +1,13 @@
+
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import Header from './components/header'; 
-import Footer from './components/footer'; 
-import HomePage from './components/homePage'; 
-import Interesses from './components/interesses'; 
+import Header from './components/header';
+import Footer from './components/footer';
+import HomePage from './components/homePage';
+import Interesses from './components/interesses';
 import DetailPage from './components/detailPage';
+import LoginPage from './components/LoginPage'; 
+import RegisterPage from './components/RegisterPage';
 
 function App() {
   const [todosOsCarros, setTodosOsCarros] = useState([]);
@@ -36,6 +39,8 @@ function App() {
 
   const irParaHome = () => navigate('/');
   const irParaInteresses = () => navigate('/interesses');
+  const irParaLogin = () => navigate('/login');
+  const irParaRegister = () => navigate('/register');
 
   let pageContent;
   if (loading) {
@@ -57,6 +62,9 @@ function App() {
           path="/carro/:carroId" 
           element={<DetailPage todosOsCarros={todosOsCarros} />} 
         />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        
         <Route 
           path="*" 
           element={<HomePage todosOsCarrosOriginal={todosOsCarros} termoBuscaAtual={termoBusca} />} 
@@ -72,6 +80,8 @@ function App() {
         onBuscaChange={handleBuscaChange}
         onNavigateHome={irParaHome}         
         onNavigateInteresses={irParaInteresses}
+        onNavigateLogin={irParaLogin}
+        onNavigateRegister={irParaRegister}
       />
       <main> 
         {pageContent}
