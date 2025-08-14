@@ -6,7 +6,7 @@ function Interesses({ todosOsCarrosGeral, termoBuscaAtual }) {
   const [paginaAtual, setPaginaAtual] = useState(1);
   const [carrosInteressados, setCarrosInteressados] = useState([]);
   const [carrosFiltrados, setCarrosFiltrados] = useState([]);
-  const [mensagemFeedback, setMensagemFeedback] = useState('Carregando seus veículos de interesse...');
+  const [mensagemFeedback, setMensagemFeedback] = useState('Carregando...');
   const [isLoading, setIsLoading] = useState(true);
   
   document.title = "Meus Veículos de Interesse";
@@ -26,23 +26,20 @@ function Interesses({ todosOsCarrosGeral, termoBuscaAtual }) {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 
-        if (!response.ok) {
-            if (response.status === 401) {
-              setMensagemFeedback('Sua sessão expirou. Por favor, faça o login novamente.');
-              setCarrosInteressados([]);
-              setIsLoading(false);
-              return;
-            }
-            throw new Error('Não foi possível carregar os interesses.');
+        if (response.status === 401) {
+          setMensagemFeedback('Sua sessão expirou. Por favor, faça o login novamente.');
+          setCarrosInteressados([]);
+          setIsLoading(false);
+          return;
         }
+        if (!response.ok) throw new Error('Não foi possível carregar os interesses.');
 
         const idsInteresse = await response.json();
         
-        if (todosOsCarrosGeral && todosOsCarrosGeral.length > 0) {
+        if (todosOsCarrosGeral.length > 0) {
             const carrosComInteresse = todosOsCarrosGeral.filter(carro => idsInteresse.includes(carro.id));
             setCarrosInteressados(carrosComInteresse);
         }
-
     } catch (error) {
         setMensagemFeedback(error.message);
         setCarrosInteressados([]);
@@ -50,6 +47,7 @@ function Interesses({ todosOsCarrosGeral, termoBuscaAtual }) {
         setIsLoading(false);
     }
   };
+  
   useEffect(() => {
     if (todosOsCarrosGeral.length > 0) {
         fetchInteresses();
@@ -58,7 +56,7 @@ function Interesses({ todosOsCarrosGeral, termoBuscaAtual }) {
 
   useEffect(() => {
     let filtrados = carrosInteressados;
-    if (termoBuscaAtual && termoBuscaAtual.trim() !== '') {
+    if (termoBuscaAtual) {
         const termo = termoBuscaAtual.toLowerCase();
         filtrados = carrosInteressados.filter(carro =>
             carro.nome.toLowerCase().includes(termo) ||
@@ -92,12 +90,10 @@ function Interesses({ todosOsCarrosGeral, termoBuscaAtual }) {
         if (!response.ok) { throw new Error('Falha ao remover interesse.'); }
         
         setCarrosInteressados(prev => prev.filter(carro => carro.id !== carroId));
-
     } catch (error) {
         console.error(error.message);
     }
   };
-
 
   const indiceUltimoCarro = paginaAtual * itensPorPagina;
   const indicePrimeiroCarro = indiceUltimoCarro - itensPorPagina;
@@ -117,7 +113,6 @@ function Interesses({ todosOsCarrosGeral, termoBuscaAtual }) {
     if (paginaAtual < totalPaginas) { botoes.push(<button key="proxima" onClick={() => mudarPagina(paginaAtual + 1)}>Próxima</button>); }
     return botoes;
   };
-
 
   return (
     <div>
