@@ -22,7 +22,7 @@ function Interesses({ todosOsCarrosGeral, termoBuscaAtual }) {
     }
 
     try {
-        const response = await fetch('http://localhost:3001/api/interesses', {
+        const response = await fetch(`https://concessionaria-nunes.onrender.com/api/interesses/${carroId}`, {
             headers: { 'Authorization': `Bearer ${token}` }
         });
 
@@ -83,7 +83,7 @@ function Interesses({ todosOsCarrosGeral, termoBuscaAtual }) {
     if(!token) return;
 
     try {
-        const response = await fetch(`http://localhost:3001/api/interesses/${carroId}`, {
+        const response = await fetch('https://concessionaria-nunes.onrender.com/api/interesses', {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${token}` }
         });

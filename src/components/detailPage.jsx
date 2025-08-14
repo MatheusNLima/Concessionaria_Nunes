@@ -35,7 +35,7 @@ function DetailPage({ todosOsCarros }) {
         }
 
         try {
-            const response = await fetch('http://localhost:3001/api/interesses', {
+            const response = await fetch('https://concessionaria-nunes.onrender.com/api/interesses', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!response.ok) throw new Error('Falha ao verificar interesses.');
@@ -64,7 +64,7 @@ function DetailPage({ todosOsCarros }) {
     const method = proximoEstado ? 'POST' : 'DELETE';
     
     try {
-        const response = await fetch(`http://localhost:3001/api/interesses/${carroSelecionado.id}`, {
+        const response = await fetch('https://concessionaria-nunes.onrender.com/api/interesses', {
             method: method,
             headers: { 'Authorization': `Bearer ${token}` }
         });
