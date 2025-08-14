@@ -16,7 +16,7 @@ function RegisterPage() {
     setMessage('');
 
     try {
-      const response = await fetch('http://localhost:3001/api/users/register', {
+     const response = await fetch('https://concessionaria-nunes.onrender.com/api/users/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
