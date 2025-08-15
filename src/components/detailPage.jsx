@@ -1,137 +1,104 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx';
 import '../detalhe.css';
 
 function DetailPage({ todosOsCarros }) {
   const { carroId } = useParams();
+  const navigate = useNavigate();
+  const { isLoggedIn, interestIds, toggleInterest } = useAuth();
+  
   const [carroSelecionado, setCarroSelecionado] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [imagemPrincipal, setImagemPrincipal] = useState('');
-  const [interesseMarcado, setInteresseMarcado] = useState(false);
   
   const placeholderSrcGlobal = `${import.meta.env.BASE_URL}placeholder_img/placeholder-400x300_fallback.png`;
-
+  const isFavorited = carroSelecionado ? interestIds.includes(carroSelecionado.id) : false;
+  
   useEffect(() => {
     if (todosOsCarros.length > 0) {
       const idNumerico = parseInt(carroId, 10);
       const encontrado = todosOsCarros.find(c => c.id === idNumerico);
       setCarroSelecionado(encontrado);
       
-      if (encontrado?.fotosUrls?.[0]) {
-        setImagemPrincipal(`${import.meta.env.BASE_URL}${encontrado.fotosUrls[0]}`);
-      } else if (encontrado) {
-        setImagemPrincipal(placeholderSrcGlobal);
-      }
+      const fotoInicial = encontrado?.fotosUrls?.[0] ? `${import.meta.env.BASE_URL}${encontrado.fotosUrls[0]}` : placeholderSrcGlobal;
+      setImagemPrincipal(fotoInicial);
+      document.title = encontrado ? `${encontrado.nome} - Detalhes` : 'Veículo não encontrado';
     }
-  }, [carroId, todosOsCarros, placeholderSrcGlobal]);
+  }, [carroId, todosOsCarros]);
 
-  useEffect(() => {
-    const fetchEstadoInteresse = async () => {
-        if (!carroSelecionado) return;
-        const token = localStorage.getItem('userToken');
-        if (!token) {
-          setIsLoading(false);
-          return;
-        }
-
-        try {
-            const response = await fetch('https://concessionaria-nunes.onrender.com/api/interesses', {
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-            if (!response.ok) throw new Error('Falha ao verificar interesses.');
-
-            const idsInteresse = await response.json();
-            setInteresseMarcado(idsInteresse.includes(carroSelecionado.id));
-        } catch (error) {
-            console.error(error.message);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-    
-    document.title = carroSelecionado ? `${carroSelecionado.nome} - Detalhes` : 'Veículo não encontrado';
-    fetchEstadoInteresse();
-  }, [carroSelecionado]);
-
-  const toggleInteresse = async () => {
-    if (!localStorage.getItem('userToken')) {
-        alert("Você precisa estar logado para marcar interesse!");
+  const handleFavoriteClick = () => {
+    if (!isLoggedIn) {
+        alert("Você precisa estar logado para favoritar um veículo.");
+        navigate('/login');
         return;
     }
-
-    const token = localStorage.getItem('userToken');
-    const proximoEstado = !interesseMarcado;
-    const method = proximoEstado ? 'POST' : 'DELETE';
-    
-    try {
-        const response = await fetch('https://concessionaria-nunes.onrender.com/api/interesses', {
-            method: method,
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        if (!response.ok) throw new Error('Ação de interesse falhou.');
-        setInteresseMarcado(proximoEstado);
-    } catch (error) {
-        console.error(error);
-        alert('Ocorreu um erro. Tente novamente.');
-    }
+    toggleInterest(carroSelecionado.id);
   };
-
-  if (todosOsCarros.length > 0 && !carroSelecionado) {
+  
+  if (!carroSelecionado) {
     return (
-      <div id="detalhe-carro-container" style={{ textAlign: 'center', padding: '50px' }}>
-        <p className="mensagem-feedback">Carro com ID {carroId} não encontrado.</p>
-        <Link to="/" className="btn-voltar-home">« Voltar para a Vitrine</Link>
-      </div>
+        <div id="detalhe-carro-container" style={{ textAlign: 'center', padding: '50px' }}>
+            <p>Carro com ID {carroId} não encontrado.</p>
+            <Link to="/">« Voltar para a Vitrine</Link>
+        </div>
     );
   }
-  
-  return carroSelecionado && (
+
+  return (
     <div id="detalhe-carro-container">
       <div className="detalhe-carro-grid">
         <div className="detalhe-imagens">
           <img
             id="imagem-principal-detalhe"
-            src={imagemPrincipal}
+            src={imagemPrincipal || placeholderSrcGlobal}
             alt={`Foto principal de ${carroSelecionado.nome}`}
-            onError={(e) => { e.target.onerror = null; e.target.src = placeholderSrcGlobal; }} 
+            onError={(e) => { e.target.src = placeholderSrcGlobal;}} 
           />
           {carroSelecionado.fotosUrls && carroSelecionado.fotosUrls.length > 1 && (
             <div className="miniaturas">
-              {carroSelecionado.fotosUrls.map((fotoUrlRelativa, index) => (
+              {carroSelecionado.fotosUrls.map((fotoUrlRelativa, index) => {
+                const fotoUrlCompleta = `${import.meta.env.BASE_URL}${fotoUrlRelativa}`;
+                return (
                   <img
                     key={index}
-                    src={`${import.meta.env.BASE_URL}${fotoUrlRelativa}`}
-                    alt={`Miniatura ${index + 1} de ${carroSelecionado.nome}`}
-                    onClick={() => setImagemPrincipal(`${import.meta.env.BASE_URL}${fotoUrlRelativa}`)}
-                    className={`${import.meta.env.BASE_URL}${fotoUrlRelativa}` === imagemPrincipal ? 'ativa' : ''}
-                    onError={(e) => {e.target.style.display='none';}}
+                    src={fotoUrlCompleta}
+                    alt={`Miniatura ${index + 1}`}
+                    onClick={() => setImagemPrincipal(fotoUrlCompleta)}
+                    className={fotoUrlCompleta === imagemPrincipal ? 'ativa' : ''}
+                    onError={(e) => { e.target.style.display='none';}}
                   />
-                ))}
+                );
+              })}
             </div>
           )}
         </div>
         <div className="detalhe-info">
-          <h2>{carroSelecionado.nome}</h2>
+          <div className="detalhe-header">
+              <h2>{carroSelecionado.nome}</h2>
+              <button className="btn-favorite-detail" onClick={handleFavoriteClick} aria-label={isFavorited ? "Desfavoritar" : "Favoritar"}>
+                  <svg viewBox="0 0 24 24" width="32" height="32" strokeWidth="1.5">
+                      {isFavorited ? (
+                          <path className="heart-filled" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                      ) : (
+                          <path className="heart-outline" d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"/>
+                      )}
+                  </svg>
+              </button>
+          </div>
           <p className="marca-ano">{carroSelecionado.marca} - {carroSelecionado.ano}</p>
           <p className="preco-detalhe">{carroSelecionado.preco}</p>
           <p className="descricao-completa">
-            {carroSelecionado.descricao.split('\n').map((str, index, array) =>
-              index === array.length - 1 ? str : <React.Fragment key={index}>{str}<br/></React.Fragment>
-            )}
+            {carroSelecionado.descricao.split('\n').map((str, i) => <React.Fragment key={i}>{str}<br/></React.Fragment>)}
           </p>
-          <button
-            id="btn-add-interesse"
-            className={`btn-interesse ${interesseMarcado ? 'marcado' : ''}`}
-            onClick={toggleInteresse}
-            disabled={isLoading}
-          >
-            {interesseMarcado ? '✓ Interesse Marcado' : 'Tenho Interesse!'}
-          </button>
         </div>
       </div>
-      <div className="botoes-navegacao-detalhe">
-        <Link to="/" className="btn-voltar-pagina">« Voltar para Vitrine</Link>
-        <Link to="/interesses" className="btn-ver-interesses">Ver Meus Interesses</Link>
+      <div className="botoes-navegacao-detalhe" style={{marginTop: '40px', textAlign: 'center'}}>
+        <Link to="/" className="btn-voltar-pagina" style={{padding: '10px 25px', backgroundColor: '#6c757d', color: 'white', textDecoration: 'none', borderRadius: '6px'}}>
+            « Voltar para Vitrine
+        </Link>
+        <Link to="/interesses" className="btn-ver-interesses" style={{marginLeft: '20px', padding: '10px 25px', backgroundColor: '#007bff', color: 'white', textDecoration: 'none', borderRadius: '6px'}}>
+            Ver Meus Interesses
+        </Link>
       </div>
     </div>
   );

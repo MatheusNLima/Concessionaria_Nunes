@@ -52,7 +52,6 @@
     font-size: 2.4em;
     color: #2c3e50;
     font-family: 'Montserrat', sans-serif;
-    margin-bottom: 8px;
     font-weight: 600;
 }
 
@@ -78,31 +77,9 @@
     white-space: pre-wrap;
 }
 
+/* O botão de interesse com texto agora está oculto. */
 .btn-interesse {
-    display: inline-block;
-    background-color: #007bff;
-    color: white;
-    padding: 12px 25px;
-    text-decoration: none;
-    border-radius: 6px;
-    font-size: 1.1em;
-    font-weight: 500;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.15s;
-    font-family: 'Open Sans', sans-serif;
-}
-
-.btn-interesse:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-}
-
-.btn-interesse.marcado {
-    background-color: #28a745;
-}
-.btn-interesse.marcado:hover {
-    background-color: #1e7e34;
+    display: none !important;
 }
 
 @media (min-width: 768px) {
@@ -112,4 +89,35 @@
     }
     .detalhe-imagens { order: 1; }
     .detalhe-info { order: 2; padding-left: 20px; }
+}
+
+/* NOVAS REGRAS PARA O CORAÇÃO */
+.detalhe-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 8px;
+}
+.detalhe-header h2 {
+    margin-bottom: 0;
+}
+.btn-favorite-detail {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+.btn-favorite-detail:hover {
+    transform: scale(1.1);
+}
+.btn-favorite-detail svg .heart-filled {
+    fill: #e74c3c;
+    stroke: #c0392b;
+}
+.btn-favorite-detail svg .heart-outline {
+    fill: #343a40;
+    stroke: none;
 }
