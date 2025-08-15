@@ -19,6 +19,7 @@
     "compression": "^1.8.1",
     "express-rate-limit": "^8.0.1",
     "helmet": "^8.1.0",
+    "pm2": "^6.0.8",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.0",
