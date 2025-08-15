@@ -10,14 +10,28 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const MONGO_URI = process.env.MONGO_URI;
 
+// Lista de origens permitidas
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://matheusnlima.github.io'
+];
+
 const corsOptions = {
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
+    origin: function (origin, callback) {
+        // Permite requisições sem 'origin' (ex: Postman) ou da lista de permitidos
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Acesso não permitido por CORS'));
+        }
+    },
     optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// Roteadores da API
 app.use('/api/users', authRoutes);
 app.use('/api/interesses', interestRoutes);
 
