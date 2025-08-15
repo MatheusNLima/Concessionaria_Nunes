@@ -2,6 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const compression = require('compression');
 
 const authRoutes = require('./routes/auth.routes.js');
 const interestRoutes = require('./routes/interest.routes.js');
@@ -10,7 +13,6 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const MONGO_URI = process.env.MONGO_URI;
 
-// Lista de origens permitidas
 const allowedOrigins = [
     'http://localhost:5173',
     'https://matheusnlima.github.io'
@@ -18,7 +20,6 @@ const allowedOrigins = [
 
 const corsOptions = {
     origin: function (origin, callback) {
-        // Permite requisições sem 'origin' (ex: Postman) ou da lista de permitidos
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true);
         } else {
@@ -30,8 +31,16 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(helmet());
+app.use(compression());
 
-// Roteadores da API
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5,
+  message: { message: 'Muitas tentativas. Tente novamente mais tarde.' }
+});
+app.use('/api/users/login', loginLimiter);
+
 app.use('/api/users', authRoutes);
 app.use('/api/interesses', interestRoutes);
 

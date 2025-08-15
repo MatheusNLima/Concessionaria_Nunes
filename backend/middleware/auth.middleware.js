@@ -13,6 +13,9 @@ const protectRoute = (req, res, next) => {
         req.user = decoded.user;
         next();
     } catch (error) {
+        if (error.name === 'TokenExpiredError') {
+            return res.status(401).json({ message: 'Token expirado. Faça login novamente.' });
+        }
         return res.status(401).json({ message: 'Acesso negado. Token inválido.' });
     }
 };

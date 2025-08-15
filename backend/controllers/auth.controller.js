@@ -1,5 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const validator = require('validator');
 const User = require('../models/user.model.js');
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-key';
@@ -8,6 +9,10 @@ const registerUser = async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
         return res.status(400).json({ message: 'Por favor, forneça email e senha.' });
+    }
+
+    if (!validator.isEmail(email)) {
+        return res.status(400).json({ message: 'Email inválido.' });
     }
 
     try {

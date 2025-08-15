@@ -4,11 +4,10 @@ import { useNavigate } from 'react-router-dom';
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
-    const [token, setToken] = useState(localStorage.getItem('userToken'));
+    const [token, setToken] = useState(sessionStorage.getItem('userToken'));
     const [interestIds, setInterestIds] = useState([]);
     const navigate = useNavigate();
 
-    // Busca os interesses iniciais ou sempre que o token mudar.
     const fetchInteresses = async () => {
         if (!token) {
             setInterestIds([]);
@@ -23,32 +22,30 @@ export const AuthProvider = ({ children }) => {
             setInterestIds(ids);
         } catch (error) {
             console.error(error);
-            setInterestIds([]); // Limpa em caso de erro (ex: token expirado)
+            setInterestIds([]);
         }
     };
 
-    // Efeito para buscar interesses na inicialização e no login/logout
     useEffect(() => {
         fetchInteresses();
     }, [token]);
     
-    // Efeito para manter o estado sincronizado entre abas
     useEffect(() => {
         const handleStorageChange = () => {
-            setToken(localStorage.getItem('userToken'));
+            setToken(sessionStorage.getItem('userToken'));
         };
         window.addEventListener('storage', handleStorageChange);
         return () => window.removeEventListener('storage', handleStorageChange);
     }, []);
 
     const login = (newToken) => {
-        localStorage.setItem('userToken', newToken);
+        sessionStorage.setItem('userToken', newToken);
         setToken(newToken);
         navigate('/');
     };
 
     const logout = () => {
-        localStorage.removeItem('userToken');
+        sessionStorage.removeItem('userToken');
         setToken(null);
         setInterestIds([]);
         navigate('/login');
@@ -61,7 +58,6 @@ export const AuthProvider = ({ children }) => {
         const method = isCurrentlyFavorited ? 'DELETE' : 'POST';
         const url = `https://concessionaria-nunes.onrender.com/api/interesses/${carId}`;
         
-        // Atualização otimista da UI para resposta imediata
         if (isCurrentlyFavorited) {
             setInterestIds(prev => prev.filter(id => id !== carId));
         } else {
@@ -75,13 +71,12 @@ export const AuthProvider = ({ children }) => {
             });
 
             if (!response.ok) {
-                // Se a API falhar, reverte o estado
                 console.error("Falha ao atualizar interesse na API.");
-                fetchInteresses(); // Sincroniza com a verdade do servidor
+                fetchInteresses();
             }
         } catch (error) {
             console.error("Erro de rede ao atualizar interesse.", error);
-            fetchInteresses(); // Sincroniza com a verdade do servidor
+            fetchInteresses();
         }
     };
 
@@ -91,7 +86,7 @@ export const AuthProvider = ({ children }) => {
         login, 
         logout,
         interestIds,
-        toggleInterest // Ação única para adicionar/remover
+        toggleInterest
     };
 
     return (
