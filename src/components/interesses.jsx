@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import CarCard from './carCard.jsx';
-import { useAuth } from '../context/AuthContext.jsx'; // 1. Importa o useAuth
+import { useAuth } from '../context/AuthContext.jsx';
 
 function Interesses({ todosOsCarrosGeral, termoBuscaAtual }) {
-  const { interestIds, isLoggedIn } = useAuth(); // 2. Obtém a lista de IDs de interesse diretamente do contexto
+  const { interestIds, isLoggedIn } = useAuth();
 
   const itensPorPagina = 12;
   const [paginaAtual, setPaginaAtual] = useState(1);
-  
-  // O estado agora é derivado diretamente das props e do contexto
+
   const [carrosInteressados, setCarrosInteressados] = useState([]);
   const [carrosFiltrados, setCarrosFiltrados] = useState([]);
   
   document.title = "Meus Veículos de Interesse";
 
-  // Efeito que sincroniza os carros de interesse com a lista global de IDs
   useEffect(() => {
     if (todosOsCarrosGeral.length > 0 && interestIds) {
       const carrosComInteresse = todosOsCarrosGeral.filter(carro => interestIds.includes(carro.id));
@@ -22,9 +20,8 @@ function Interesses({ todosOsCarrosGeral, termoBuscaAtual }) {
     } else {
       setCarrosInteressados([]);
     }
-  }, [interestIds, todosOsCarrosGeral]); // 3. Reage a mudanças nos IDs de interesse!
+  }, [interestIds, todosOsCarrosGeral]);
 
-  // Efeito que aplica o filtro de busca de texto
   useEffect(() => {
     let filtrados = carrosInteressados;
     if (termoBuscaAtual) {
@@ -35,12 +32,9 @@ function Interesses({ todosOsCarrosGeral, termoBuscaAtual }) {
       );
     }
     setCarrosFiltrados(filtrados);
-    setPaginaAtual(1); // Reseta a paginação ao filtrar
+    setPaginaAtual(1);
   }, [termoBuscaAtual, carrosInteressados]);
   
-  // A função para remover o interesse agora está no CarCard, então não precisamos mais dela aqui.
-
-  // --- Lógica de Paginação (inalterada) ---
   const indiceUltimoCarro = paginaAtual * itensPorPagina;
   const indicePrimeiroCarro = indiceUltimoCarro - itensPorPagina;
   const carrosDaPaginaAtual = carrosFiltrados.slice(indicePrimeiroCarro, indiceUltimoCarro);
@@ -60,7 +54,6 @@ function Interesses({ todosOsCarrosGeral, termoBuscaAtual }) {
     return botoes;
   };
 
-  // --- Lógica de Feedback ---
   let feedbackMessage = '';
   if (!isLoggedIn) {
     feedbackMessage = 'Você precisa estar logado para ver seus interesses.';
@@ -76,7 +69,6 @@ function Interesses({ todosOsCarrosGeral, termoBuscaAtual }) {
       <div id="vitrine-interesses"> 
         {carrosDaPaginaAtual.length > 0 ? (
           carrosDaPaginaAtual.map(carro => (
-            // Agora o CarCard aqui é o mesmo da home, com o coração. O botão de remover foi eliminado.
             <CarCard key={carro.id} carro={carro} />
           ))
         ) : (

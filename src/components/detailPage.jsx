@@ -97,7 +97,7 @@ function DetailPage({ todosOsCarros }) {
             « Voltar para Vitrine
         </Link>
         <Link to="/interesses" className="btn-ver-interesses" style={{marginLeft: '20px', padding: '10px 25px', backgroundColor: '#007bff', color: 'white', textDecoration: 'none', borderRadius: '6px'}}>
-            Ver Meus Interesses
+            Ver Meus Favoritos
         </Link>
       </div>
     </div>
