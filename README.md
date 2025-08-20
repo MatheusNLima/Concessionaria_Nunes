@@ -53,8 +53,8 @@ Siga os passos abaixo para rodar a aplicação completa na sua máquina.
 
 1.  **Clone o repositório:**
     ```bash
-    git clone https://github.com/MatheusNLima/aprova.git
-    cd aprova
+    git clone https://github.com/MatheusNLima/Concessionaria_Nunes.git
+    cd Concessionaria_Nunes
     ```
 
 2.  **Instale as dependências do Frontend:**
@@ -80,7 +80,7 @@ Siga os passos abaixo para rodar a aplicação completa na sua máquina.
     MONGO_URI=mongodb+srv://<username>:<password>@cluster-name.mongodb.net/database-name?retryWrites=true&w=majority
 
     # Chave secreta para os tokens JWT (pode ser qualquer string longa e aleatória)
-    JWT_SECRET=suaChaveSuperSecretaAqui123
+    JWT_SECRET= {keyword}
 
     # URL do seu frontend para as regras de CORS
     FRONTEND_URL=http://localhost:5173
