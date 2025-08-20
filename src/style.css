@@ -160,3 +160,47 @@ footer p { font-size: 0.9em;}
     fill: #555;
     stroke: none;
 }
+footer {
+    /* Torna o footer um "container" para o posicionamento dos ícones */
+    position: relative; 
+    
+    display: flex;
+    justify-content: center; /* Centraliza o texto de copyright */
+    align-items: center;
+    padding: 1.5em 30px; /* Adiciona espaçamento interno */
+
+    background-color: #212529;
+    color: #adb5bd;
+    text-align: center;
+    width: 100%;
+}
+
+footer p {
+    font-size: 0.9em;
+}
+
+.footer-links {
+    /* Posiciona a div dos ícones absolutamente à esquerda */
+    position: absolute;
+    left: 30px; /* Distância da borda esquerda, alinhado com o padding */
+    top: 50%;
+    transform: translateY(-50%); /* Garante alinhamento vertical perfeito */
+    
+    display: flex;
+    gap: 20px; /* Espaçamento entre os ícones */
+}
+
+.footer-icon-link {
+    color: #adb5bd;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-icon-link:hover {
+    color: #ffffff;
+    transform: scale(1.1); /* Efeito de zoom sutil ao passar o mouse */
+}
+
+.footer-icon-link svg {
+    width: 26px; /* Ajuste leve no tamanho */
+    height: 26px;
+}
