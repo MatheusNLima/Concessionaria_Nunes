@@ -1,5 +1,5 @@
 # Concessionária Nunes - Vitrine de Veículos
-disponível online em: https://matheusnlima.github.io/aprova/
+disponível online em: https://matheusnlima.github.io/Concessionaria_Nunes/
 > Um projeto full-stack de uma vitrine digital para uma concessionária de veículos, apresentando um catálogo de carros, sistema de login de usuários e uma lista de interesses personalizada.
 
 Este projeto foi construído do zero utilizando React no frontend e Node.js/Express com MongoDB no backend, com o objetivo de criar uma experiência de usuário moderna e funcional, desde a visualização dos produtos até a gestão de uma conta pessoal.
