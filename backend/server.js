@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const compression = require('compression');
+const iaRoutes = require('./routes/ia.routes.js');
 
 const authRoutes = require('./routes/auth.routes.js');
 const interestRoutes = require('./routes/interest.routes.js');
@@ -33,6 +34,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(helmet());
 app.use(compression());
+app.use('/api/ia', iaRoutes);
 
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,

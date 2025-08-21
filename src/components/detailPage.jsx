@@ -10,6 +10,11 @@ function DetailPage({ todosOsCarros }) {
   
   const [carroSelecionado, setCarroSelecionado] = useState(null);
   const [imagemPrincipal, setImagemPrincipal] = useState('');
+  const [descricaoGerada, setDescricaoGerada] = useState('');
+  const [mostrarChat, setMostrarChat] = useState(false);
+  const [mensagemChat, setMensagemChat] = useState('');
+  const [respostaChat, setRespostaChat] = useState('');
+  const [carregando, setCarregando] = useState(false);
   
   const placeholderSrcGlobal = `${import.meta.env.BASE_URL}placeholder_img/placeholder-400x300_fallback.png`;
   const isFavorited = carroSelecionado ? interestIds.includes(carroSelecionado.id) : false;
@@ -33,6 +38,64 @@ function DetailPage({ todosOsCarros }) {
         return;
     }
     toggleInterest(carroSelecionado.id);
+  };
+
+  const gerarDescricaoIA = async () => {
+    try {
+      setCarregando(true);
+      const token = sessionStorage.getItem('userToken');
+      const response = await fetch('https://concessionaria-nunes.onrender.com/api/ia/generate-description', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(carroSelecionado)
+      });
+      
+      const data = await response.json();
+      if (response.ok) {
+        setDescricaoGerada(data.descricao_gerada);
+      } else {
+        alert('Erro ao gerar descrição: ' + (data.error || 'Erro desconhecido'));
+      }
+    } catch (error) {
+      alert('Erro de conexão ao gerar descrição');
+    } finally {
+      setCarregando(false);
+    }
+  };
+
+  const enviarPergunta = async () => {
+    if (!mensagemChat.trim() || carregando) return;
+    
+    try {
+      setCarregando(true);
+      const token = sessionStorage.getItem('userToken');
+      const response = await fetch('https://concessionaria-nunes.onrender.com/api/ia/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          carro_id: carroSelecionado.id,
+          user_message: mensagemChat
+        })
+      });
+      
+      const data = await response.json();
+      if (response.ok) {
+        setRespostaChat(data.resposta);
+        setMensagemChat('');
+      } else {
+        alert('Erro no chat: ' + (data.error || 'Erro desconhecido'));
+      }
+    } catch (error) {
+      alert('Erro de conexão no chat');
+    } finally {
+      setCarregando(false);
+    }
   };
   
   if (!carroSelecionado) {
@@ -92,6 +155,7 @@ function DetailPage({ todosOsCarros }) {
           </p>
         </div>
       </div>
+      
       <div className="botoes-navegacao-detalhe" style={{marginTop: '40px', textAlign: 'center'}}>
         <Link to="/" className="btn-voltar-pagina" style={{padding: '10px 25px', backgroundColor: '#6c757d', color: 'white', textDecoration: 'none', borderRadius: '6px'}}>
             « Voltar para Vitrine
@@ -100,6 +164,88 @@ function DetailPage({ todosOsCarros }) {
             Ver Meus Favoritos
         </Link>
       </div>
+      
+      {isLoggedIn && (
+        <div className="ia-actions" style={{ marginTop: '30px', padding: '20px', borderTop: '1px solid #eee' }}>
+          <h3>Recursos de IA</h3>
+          
+          <button 
+            onClick={gerarDescricaoIA} 
+            disabled={carregando}
+            className="btn-ia"
+          >
+            {carregando ? 'Gerando...' : '✨ Gerar Descrição com IA'}
+          </button>
+          
+          <button 
+            onClick={() => setMostrarChat(!mostrarChat)} 
+            className="btn-ia"
+          >
+            {mostrarChat ? 'Fechar Chat' : '💬 Perguntar sobre este carro'}
+          </button>
+          
+          {descricaoGerada && (
+            <div className="descricao-gerada" style={{ 
+              marginTop: '20px', 
+              padding: '15px', 
+              backgroundColor: '#f8f9fa', 
+              borderRadius: '8px',
+              borderLeft: '4px solid #007bff'
+            }}>
+              <h4>Descrição Gerada por IA:</h4>
+              <p>{descricaoGerada}</p>
+            </div>
+          )}
+          
+          {mostrarChat && (
+            <div className="chat-ia" style={{ 
+              marginTop: '20px', 
+              padding: '15px', 
+              backgroundColor: '#f8f9fa', 
+              borderRadius: '8px' 
+            }}>
+              <h4>Pergunte sobre este {carroSelecionado.nome}</h4>
+              
+              {respostaChat && (
+                <div className="resposta-ia" style={{ 
+                  padding: '10px', 
+                  backgroundColor: '#e7f3ff', 
+                  borderRadius: '6px', 
+                  marginBottom: '15px' 
+                }}>
+                  <strong>IA:</strong> {respostaChat}
+                </div>
+              )}
+              
+              <div className="chat-input" style={{ display: 'flex', gap: '10px' }}>
+                <input
+                  type="text"
+                  value={mensagemChat}
+                  onChange={(e) => setMensagemChat(e.target.value)}
+                  placeholder="Ex: Qual o consumo de combustível?"
+                  onKeyPress={(e) => e.key === 'Enter' && enviarPergunta()}
+                  style={{ flex: 1, padding: '10px', borderRadius: '6px', border: '1px solid #ced4da' }}
+                  disabled={carregando}
+                />
+                <button 
+                  onClick={enviarPergunta}
+                  disabled={carregando || !mensagemChat.trim()}
+                  style={{ 
+                    padding: '10px 15px', 
+                    backgroundColor: '#28a745', 
+                    color: 'white', 
+                    border: 'none', 
+                    borderRadius: '6px',
+                    cursor: carregando ? 'not-allowed' : 'pointer'
+                  }}
+                >
+                  {carregando ? 'Enviando...' : 'Enviar'}
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
