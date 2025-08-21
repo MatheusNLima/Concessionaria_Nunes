@@ -9,14 +9,20 @@ load_dotenv()
 
 app = FastAPI()
 
+# Configuração de CORS para permitir requisições do frontend e do backend Node.js
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "https://matheusnlima.github.io"],
+    allow_origins=[
+        "http://localhost:5173", 
+        "https://matheusnlima.github.io",
+        "https://concessionaria-nunes.onrender.com"  # URL do seu backend Node.js no Render
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# Configuração da API da OpenAI
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 class CarData(BaseModel):
@@ -32,6 +38,10 @@ class ChatRequest(BaseModel):
     carro_id: int
     user_message: str
     carros_contexto: list[dict]
+
+@app.get("/")
+async def root():
+    return {"message": "API Python da Concessionária Nunes está funcionando!"}
 
 @app.post("/generate_description")
 async def generate_description(car_data: CarData):
@@ -111,4 +121,5 @@ async def chat_about_car(chat_request: ChatRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
