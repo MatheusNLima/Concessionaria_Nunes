@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: concessionaria-nunes-python-api
+    env: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "python main.py"
+    envVars:
+      - key: OPENAI_API_KEY
+        fromSecret: OPENAI_API_KEY
