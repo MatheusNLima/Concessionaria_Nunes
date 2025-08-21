@@ -1,13 +1,36 @@
-#!/usr/bin/env bash
-# Exit on error
-set -o errexit
+#!/bin/bash
 
-# Create and activate virtual environment with Python 3.9
-python3.9 -m venv venv
-source venv/bin/activate
+# Script para deploy em múltiplos ambientes
 
-# Install dependencies using pip
-pip install -r requirements.txt
+ENV=$1
 
-# Install uvicorn explicitly
-pip install uvicorn
+case $ENV in
+  "local")
+    echo "Iniciando ambiente local..."
+    # Inicia backend Node.js
+    cd backend && npm install && npm run dev &
+    
+    # Inicia backend Python
+    cd ia-service && pip install -r requirements.txt && python main.py &
+    
+    # Inicia frontend
+    cd frontend && npm install && npm run dev
+    ;;
+    
+  "render")
+    echo "Fazendo deploy no Render..."
+    # Configurações específicas para o Render
+    cd backend && npm install && npm start
+    ;;
+    
+  "gh-pages")
+    echo "Fazendo deploy no GitHub Pages..."
+    cd frontend && npm install && npm run build
+    npm run deploy
+    ;;
+    
+  *)
+    echo "Uso: ./deploy.sh [local|render|gh-pages]"
+    exit 1
+    ;;
+esac

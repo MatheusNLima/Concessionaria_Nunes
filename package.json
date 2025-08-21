@@ -1,29 +1,23 @@
 {
-  "homepage": "https://MatheusNLima.github.io/aprova/",
-  "name": "proj-aprova",
+  "name": "concessionaria-nunes-frontend",
+  "homepage": "https://MatheusNLima.github.io/Concessionaria_Nunes/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "deploy": "gh-pages -d dist",
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "vite --mode development",
+    "build": "vite build --mode production",
+    "preview": "vite preview",
+    "deploy": "npm run build && gh-pages -d dist"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.4.1",
     "gh-pages": "^6.3.0",
     "vite": "^6.3.5"
-  },
-  "dependencies": {
-    "compression": "^1.8.1",
-    "express-rate-limit": "^8.0.1",
-    "helmet": "^8.1.0",
-    "node-fetch": "^3.3.2",
-    "pm2": "^6.0.8",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.0",
-    "validator": "^13.15.15"
   }
 }
