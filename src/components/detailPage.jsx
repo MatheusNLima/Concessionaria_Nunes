@@ -3,7 +3,8 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import '../detalhe.css';
 
-function DetailPage({ todosOsCarros }) {
+// ATENÇÃO: Adicionar todosOsCarros como prop para que possa ser enviado para a rota /chat
+function DetailPage({ todosOsCarros }) { // <<-- O DETAILPAGE JÁ RECEBE ESTA PROP. BASTA USAR.
   const { carroId } = useParams();
   const navigate = useNavigate();
   const { isLoggedIn, interestIds, toggleInterest } = useAuth();
@@ -16,7 +17,7 @@ function DetailPage({ todosOsCarros }) {
   const [respostaChat, setRespostaChat] = useState('');
   const [carregando, setCarregando] = useState(false);
   
-  const placeholderSrcGlobal = `${import.meta.env.BASE_URL}placeholder_img/placeholder-400x300_fallback.png`;
+  const placeholderSrcGlobal = `${import.meta.env.BASE_URL}placeholder_img/placeholder-400x300.png`; 
   const isFavorited = carroSelecionado ? interestIds.includes(carroSelecionado.id) : false;
   
   useEffect(() => {
@@ -25,7 +26,16 @@ function DetailPage({ todosOsCarros }) {
       const encontrado = todosOsCarros.find(c => c.id === idNumerico);
       setCarroSelecionado(encontrado);
       
-      const fotoInicial = encontrado?.fotosUrls?.[0] ? `${import.meta.env.BASE_URL}${encontrado.fotosUrls[0]}` : placeholderSrcGlobal;
+      let fotoInicialUrl = '';
+      if (encontrado?.fotosUrls?.[0]) {
+          if (process.env.NODE_ENV === 'development') { 
+              fotoInicialUrl = `${window.location.origin}${import.meta.env.BASE_URL}${encontrado.fotosUrls[0]}`;
+          } else {
+              fotoInicialUrl = `${import.meta.env.BASE_URL}${encontrado.fotosUrls[0]}`;
+          }
+      }
+      const fotoInicial = fotoInicialUrl || placeholderSrcGlobal;
+      
       setImagemPrincipal(fotoInicial);
       document.title = encontrado ? `${encontrado.nome} - Detalhes` : 'Veículo não encontrado';
     }
@@ -44,7 +54,7 @@ function DetailPage({ todosOsCarros }) {
     try {
       setCarregando(true);
       const token = sessionStorage.getItem('userToken');
-      const response = await fetch('https://concessionaria-nunes.onrender.com/api/ia/generate-description', {
+      const response = await fetch('/api/ia/generate-description', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,6 +70,7 @@ function DetailPage({ todosOsCarros }) {
         alert('Erro ao gerar descrição: ' + (data.error || 'Erro desconhecido'));
       }
     } catch (error) {
+      console.error("Erro em gerarDescricaoIA:", error); // Adicionei este log para capturar erros aqui
       alert('Erro de conexão ao gerar descrição');
     } finally {
       setCarregando(false);
@@ -72,7 +83,7 @@ function DetailPage({ todosOsCarros }) {
     try {
       setCarregando(true);
       const token = sessionStorage.getItem('userToken');
-      const response = await fetch('https://concessionaria-nunes.onrender.com/api/ia/chat', {
+      const response = await fetch('/api/ia/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +91,8 @@ function DetailPage({ todosOsCarros }) {
         },
         body: JSON.stringify({
           carro_id: carroSelecionado.id,
-          user_message: mensagemChat
+          user_message: mensagemChat,
+          carros_contexto: todosOsCarros // <<< MANDANDO O CONTEXTO COMPLETO DOS CARROS PARA O BACKEND
         })
       });
       
@@ -92,6 +104,7 @@ function DetailPage({ todosOsCarros }) {
         alert('Erro no chat: ' + (data.error || 'Erro desconhecido'));
       }
     } catch (error) {
+      console.error("Erro em enviarPergunta:", error); // Adicionei este log para capturar erros aqui
       alert('Erro de conexão no chat');
     } finally {
       setCarregando(false);
@@ -115,12 +128,20 @@ function DetailPage({ todosOsCarros }) {
             id="imagem-principal-detalhe"
             src={imagemPrincipal || placeholderSrcGlobal}
             alt={`Foto principal de ${carroSelecionado.nome}`}
-            onError={(e) => { e.target.src = placeholderSrcGlobal;}} 
+            onError={(e) => { 
+                console.error(`Erro ao carregar imagem principal para ${carroSelecionado?.nome} (id: ${carroSelecionado?.id}): ${e.target.src}. Fallback para placeholder.`);
+                e.target.src = placeholderSrcGlobal; 
+            }} 
           />
           {carroSelecionado.fotosUrls && carroSelecionado.fotosUrls.length > 1 && (
             <div className="miniaturas">
               {carroSelecionado.fotosUrls.map((fotoUrlRelativa, index) => {
-                const fotoUrlCompleta = `${import.meta.env.BASE_URL}${fotoUrlRelativa}`;
+                let fotoUrlCompleta;
+                if (process.env.NODE_ENV === 'development') { 
+                    fotoUrlCompleta = `${window.location.origin}${import.meta.env.BASE_URL}${fotoUrlRelativa}`;
+                } else {
+                    fotoUrlCompleta = `${import.meta.env.BASE_URL}${fotoUrlRelativa}`;
+                }
                 return (
                   <img
                     key={index}
@@ -128,7 +149,10 @@ function DetailPage({ todosOsCarros }) {
                     alt={`Miniatura ${index + 1}`}
                     onClick={() => setImagemPrincipal(fotoUrlCompleta)}
                     className={fotoUrlCompleta === imagemPrincipal ? 'ativa' : ''}
-                    onError={(e) => { e.target.style.display='none';}}
+                    onError={(e) => { 
+                        console.error(`Erro ao carregar miniatura #${index} para ${carroSelecionado?.nome}: ${e.target.src}. Ocultando miniatura.`);
+                        e.target.style.display='none'; 
+                    }}
                   />
                 );
               })}

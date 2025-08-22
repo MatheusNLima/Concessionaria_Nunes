@@ -3,12 +3,16 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  
+
+  const isProduction = mode === 'production';
+  const BASE_PATH_FOR_DEPLOY = env.VITE_APP_BASE_URL || (isProduction ? '/Concessionaria_Nunes/' : '/');
+
+
   return {
     plugins: [react()],
-    base: env.VITE_APP_BASE_URL || '/',
+  base: BASE_PATH_FOR_DEPLOY,
     server: {
-      port: 3000,
+  port: 5173, //para localserver
       proxy: {
         '/api': {
           target: env.VITE_API_URL || 'http://localhost:3001',

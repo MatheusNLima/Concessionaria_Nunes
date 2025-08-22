@@ -14,7 +14,8 @@ export const AuthProvider = ({ children }) => {
             return;
         }
         try {
-            const response = await fetch('https://concessionaria-nunes.onrender.com/api/interesses', {
+            // URL ajustada para relativa
+            const response = await fetch('/api/interesses', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!response.ok) throw new Error('Falha ao buscar interesses.');
@@ -56,7 +57,8 @@ export const AuthProvider = ({ children }) => {
         
         const isCurrentlyFavorited = interestIds.includes(carId);
         const method = isCurrentlyFavorited ? 'DELETE' : 'POST';
-        const url = `https://concessionaria-nunes.onrender.com/api/interesses/${carId}`;
+        // URL ajustada para relativa
+        const url = `/api/interesses/${carId}`;
         
         if (isCurrentlyFavorited) {
             setInterestIds(prev => prev.filter(id => id !== carId));

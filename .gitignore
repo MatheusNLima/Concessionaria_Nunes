@@ -1,24 +1,40 @@
-# Logs
-logs
-*.log
+# Arquivos e Pastas Temporários/Locais (geral)
+.env
+.env.local
+.env.production
+.env.*.local
+.env.production # Específico para seu arquivo .env.production
+.DS_Store # MacOS
+Thumbs.db # Windows
+
+# Node.js
+node_modules/
+dist/         # Pasta de build do Frontend
+build/        # Se o backend gerasse algo parecido
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Python
+.Python            # Se tiver
+*.pyc
+__pycache__/
+venv/              # Ambiente virtual Python
+venv312/           # Ambiente virtual Python
+.ipynb_checkpoints # Jupyter notebooks
+venv312/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+# Editores/Ferramentas
+.vscode/           # Pode ser opcional, mas muitas configs são locais
+.idea/             # IntelliJ
+*.swp
+*.swo
+
+# Render e Docker (se não estiver usando)
+.dockerignore
+Dockerfile
+docker-compose.yml
+render.yaml # Cuidado! Se for usar o render.yaml, não coloque ele no .gitignore da raiz. 
+            # Mas como o Render vai criar os servicos a partir do repositório
+            # e voce vai ter os settings na dashboard, talvez esse render.yaml
+            # na raiz de ia-service seja um vestígio. Se nao tiver na raiz do projeto, pode manter em ia-service, sem ignorar.

@@ -15,7 +15,8 @@ function LoginPage() {
     e.preventDefault();
     setMessage('');
     try {
-      const response = await fetch('https://concessionaria-nunes.onrender.com/api/users/login', {
+      // URL ajustada para relativa
+      const response = await fetch('/api/users/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

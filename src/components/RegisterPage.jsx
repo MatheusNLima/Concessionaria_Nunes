@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './auth.css';
@@ -16,7 +15,8 @@ function RegisterPage() {
     setMessage('');
 
     try {
-     const response = await fetch('https://concessionaria-nunes.onrender.com/api/users/register', {
+     // URL ajustada para relativa
+     const response = await fetch('/api/users/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),

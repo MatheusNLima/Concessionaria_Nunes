@@ -6,9 +6,37 @@ function CarCard({ carro }) {
   const navigate = useNavigate();
   const { isLoggedIn, interestIds, toggleInterest } = useAuth();
   
-  const placeholderSrc = `${import.meta.env.BASE_URL}placeholder_img/placeholder-400x300_fallback.png`;
-  const fotoAtual = carro.fotosUrls?.[0] ? `${import.meta.env.BASE_URL}${carro.fotosUrls[0]}` : placeholderSrc;
+  // Caminhos para assets públicos devem ser construídos com import.meta.env.BASE_URL
+  const placeholderSrc = `${import.meta.env.BASE_URL}placeholder_img/placeholder-400x300.png`; 
   
+  // ===================== MUDANÇA CRÍTICA AQUI =====================
+  // CONSTRUÇÃO DA URL: Forçando um protocolo e host explícitos para desenvolvimento
+  let fotoOriginalUrl = '';
+  if (carro.fotosUrls?.[0]) {
+      // Verifica se está em ambiente de desenvolvimento (localhost)
+      // window.location.origin pode ser 'http://localhost:5173'
+      // import.meta.env.BASE_URL pode ser '/' (para dev) ou '/Concessionaria_Nunes/' (para build gh-pages)
+      // Ajuste para produção: No ambiente de produção, BASE_URL já estará correto
+      if (process.env.NODE_ENV === 'development') { // Adicionado verificação para dev/prod
+          fotoOriginalUrl = `${window.location.origin}${import.meta.env.BASE_URL}${carro.fotosUrls[0]}`;
+      } else {
+          // Para produção, como gh-pages, import.meta.env.BASE_URL já é o suficiente
+          fotoOriginalUrl = `${import.meta.env.BASE_URL}${carro.fotosUrls[0]}`;
+      }
+  }
+
+  const fotoAtual = fotoOriginalUrl || placeholderSrc;
+  // ===================== FIM DA MUDANÇA CRÍTICA =====================
+  
+  // ============ LOGS DE DEBUGGING INICIO ============
+  console.log('CarCard for ID:', carro?.id);
+  console.log('  Base URL (import.meta.env.BASE_URL):', import.meta.env.BASE_URL);
+  console.log('  Foto URL from JSON (carro.fotosUrls[0]):', carro.fotosUrls?.[0]);
+  console.log('  Calculated fotoOriginalUrl:', fotoOriginalUrl); // <--- Verifique esta URL no console!
+  console.log('  Final fotoActual SRC (applied):', fotoAtual);
+  console.log('  Placeholder SRC:', placeholderSrc);
+  // ============ LOGS DE DEBUGGING FIM ============
+
   if (!carro) {
     return (
       <div className="carro-card" style={{border: '1px dashed #ccc', textAlign: 'center', padding: '20px'}}>
@@ -45,7 +73,10 @@ function CarCard({ carro }) {
         </svg>
       </button>
 
-      <img src={fotoAtual} alt={`Foto de ${carro.nome}`} onError={(e) => { e.target.src = placeholderSrc; }} />
+      <img src={fotoAtual} alt={`Foto de ${carro.nome}`} onError={(e) => { 
+          console.error(`Erro ao carregar imagem para ${carro?.nome} (id: ${carro?.id}): ${e.target.src}. Fallback para placeholder.`);
+          e.target.src = placeholderSrc; 
+      }} />
       <h3>{carro.nome || "Nome Indisponível"}</h3>
       <p className="info">
         {(carro.marca || "Marca Indisponível")} - {(carro.ano || "Ano Indisponível")}
